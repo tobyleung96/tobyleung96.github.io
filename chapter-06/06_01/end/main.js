@@ -40,7 +40,7 @@ function init() {
 	lightBottom.position.z = 0;
 
 	// load the environment map
-	var path = '../../../assets/cubemap/';
+	var path = '../../../../assets/cubemap/';
 	var format = '.jpg';
 	var fileNames = ['px', 'nx', 'py', 'ny', 'pz', 'nz'];
 

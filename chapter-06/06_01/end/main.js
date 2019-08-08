@@ -1,8 +1,8 @@
 var GEO_TYPES = [
-	'box', 
-	'cone', 
-	'cylinder', 
-	'octahedron', 
+	'box',
+	'cone',
+	'cylinder',
+	'octahedron',
 	'sphere',
 	'tetrahedron',
 	'torus',
@@ -40,7 +40,7 @@ function init() {
 	lightBottom.position.z = 0;
 
 	// load the environment map
-	var path = '/assets/cubemap/';
+	var path = '../../../assets/cubemap/';
 	var format = '.jpg';
 	var fileNames = ['px', 'nx', 'py', 'ny', 'pz', 'nz'];
 
@@ -159,7 +159,7 @@ function getMaterial(type, color) {
 		case 'standard':
 			selectedMaterial = new THREE.MeshStandardMaterial(materialOptions);
 			break;
-		default: 
+		default:
 			selectedMaterial = new THREE.MeshBasicMaterial(materialOptions);
 			break;
 	}

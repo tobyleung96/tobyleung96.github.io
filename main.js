@@ -3,16 +3,16 @@ function init() {
 
 	// camera
   var camera = new THREE.OrthographicCamera(
-		-15,
-		15,
-		15,
-		-15,
+		-5,
+		5,
+		5,
+		-5,
 		1,
 		1000
 	);
 	camera.position.z = 10;
-	camera.position.x = 10;
-	camera.position.y = 20;
+	camera.position.x = 18;
+	camera.position.y = -18;
 	camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 	var particleMat = new THREE.PointsMaterial({

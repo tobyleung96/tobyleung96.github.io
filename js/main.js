@@ -46,7 +46,7 @@ function init() {
 	renderer.shadowMap.enabled = true;
 	renderer.setClearColor('rgb(20, 20, 20)');
 
-	// var controls = new THREE.OrbitControls( camera, renderer.domElement );
+	var controls = new THREE.OrbitControls( camera, renderer.domElement );
 
 	document.getElementById('webgl').appendChild(renderer.domElement);
 

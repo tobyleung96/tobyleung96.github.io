@@ -117,6 +117,12 @@ function update(renderer, scene, camera, controls) {
 	var particleSystem = scene.getObjectByName('particleSystem');
 	particleSystem.rotation.y += 0.005;
 
+	var particleSystem = scene.getObjectByName('particleSystem2');
+	particleSystem.rotation.y += 0.003;
+
+	var particleSystem = scene.getObjectByName('particleSystem3');
+	particleSystem.rotation.y += 0.001;
+
 	requestAnimationFrame(function() {
 		update(renderer, scene, camera, controls);
 	});

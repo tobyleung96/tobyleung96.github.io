@@ -3,10 +3,10 @@ function init() {
 
 	// camera
   var camera = new THREE.OrthographicCamera(
-		-5,
-		5,
-		5,
-		-5,
+		-15,
+		15,
+		15,
+		-15,
 		1,
 		1000
 	);

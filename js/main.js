@@ -17,7 +17,7 @@ function init() {
 
 
 	var particleMat = new THREE.PointsMaterial({
-		color: 'rgb(0, 206, 209)',
+		color: 'rgb(255, 255, 255)',
 		size: 0.25,
 		map: new THREE.TextureLoader().load('/assets/textures/particle.jpg'),
 		transparent: true,

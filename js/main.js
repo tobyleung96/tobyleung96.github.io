@@ -10,9 +10,9 @@ function init() {
 		1,
 		1000
 	);
-	camera.position.z = 18;
-	camera.position.x = 18;
-	camera.position.y = -18;
+	camera.position.z = 30;
+	camera.position.x = 30;
+	camera.position.y = 30;
 	camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 	var particleMat = new THREE.PointsMaterial({
@@ -46,7 +46,7 @@ function init() {
 	renderer.shadowMap.enabled = true;
 	renderer.setClearColor('rgb(20, 20, 20)');
 
-	var controls = new THREE.OrbitControls( camera, renderer.domElement );
+	// var controls = new THREE.OrbitControls( camera, renderer.domElement );
 
 	document.getElementById('webgl').appendChild(renderer.domElement);
 

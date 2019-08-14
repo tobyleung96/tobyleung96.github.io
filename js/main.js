@@ -2,13 +2,11 @@ function init() {
 	var scene = new THREE.Scene();
 
 	// camera
-  var camera = new THREE.OrthographicCamera(
-		-5,
-		5,
-		5,
-		-5,
-		1,
-		1000
+	var camera = new THREE.PerspectiveCamera(
+		45, // field of view
+		window.innerWidth / window.innerHeight, // aspect ratio
+		1, // near clipping plane
+		1000 // far clipping plane
 	);
 	camera.position.z = 30;
 	camera.position.x = 0;

@@ -25,6 +25,23 @@ function init() {
 		depthWrite: false
 	});
 
+	var particleGeo = new THREE.SphereGeometry(10, 64, 64);
+
+	particleGeo.vertices.forEach(function(vertex) {
+		vertex.x += (Math.random() - 0.5);
+		vertex.y += (Math.random() - 0.5);
+		vertex.z += (Math.random() - 0.5);
+	});
+
+	var particleSystem = new THREE.Points(
+		particleGeo,
+		particleMat
+	);
+	particleSystem.name = 'particleSystem';
+
+	scene.add(particleSystem);
+
+
 	var particleMat2 = new THREE.PointsMaterial({
 		color: 'rgb(169, 169, 169)',
 		size: 0.25,
@@ -32,24 +49,6 @@ function init() {
 		transparent: true,
 		blending: THREE.AdditiveBlending,
 		depthWrite: false
-	});
-
-	var particleMat3 = new THREE.PointsMaterial({
-		color: 'rgb(255, 255, 255)',
-		size: 0.25,
-		map: new THREE.TextureLoader().load('/assets/textures/particle.jpg'),
-		transparent: true,
-		blending: THREE.AdditiveBlending,
-		depthWrite: false
-	});
-
-
-	var particleGeo = new THREE.SphereGeometry(10, 64, 64);
-
-	particleGeo.vertices.forEach(function(vertex) {
-		vertex.x += (Math.random() - 0.5);
-		vertex.y += (Math.random() - 0.5);
-		vertex.z += (Math.random() - 0.5);
 	});
 
 	var particleGeo2 = new THREE.SphereGeometry(6, 64, 64);
@@ -60,24 +59,6 @@ function init() {
 		vertex.z += (Math.random() - 0.5);
 	});
 
-	var particleGeo3 = new THREE.SphereGeometry(3, 64, 64);
-
-	particleGeo3.vertices.forEach(function(vertex) {
-		vertex.x += (Math.random() - 0.5);
-		vertex.y += (Math.random() - 0.5);
-		vertex.z += (Math.random() - 0.5);
-	});
-
-
-
-	var particleSystem = new THREE.Points(
-		particleGeo,
-		particleMat
-	);
-	particleSystem.name = 'particleSystem';
-
-	scene.add(particleSystem);
-
 	var particleSystem2 = new THREE.Points(
 		particleGeo2,
 		particleMat2
@@ -86,6 +67,23 @@ function init() {
 
 	scene.add(particleSystem2);
 
+	var particleMat3 = new THREE.PointsMaterial({
+		color: 'rgb(255, 255, 255)',
+		size: 0.25,
+		map: new THREE.TextureLoader().load('/assets/textures/particle.jpg'),
+		transparent: true,
+		blending: THREE.AdditiveBlending,
+		depthWrite: false
+	});
+
+	var particleGeo3 = new THREE.SphereGeometry(3, 64, 64);
+
+	particleGeo3.vertices.forEach(function(vertex) {
+		vertex.x += (Math.random() - 0.5);
+		vertex.y += (Math.random() - 0.5);
+		vertex.z += (Math.random() - 0.5);
+	});
+	
 	var particleSystem3 = new THREE.Points(
 		particleGeo3,
 		particleMat3

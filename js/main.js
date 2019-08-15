@@ -107,7 +107,7 @@ function init() {
 
 	// // renderer
 	var renderer = new THREE.WebGLRenderer();
-	renderer.setSize(window.innerWidth, window.innerHeight + 50);
+	renderer.setSize(window.innerWidth, window.innerHeight + 70);
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 	document.getElementById('webgl').appendChild(renderer.domElement);

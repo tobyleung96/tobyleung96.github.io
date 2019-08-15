@@ -12,20 +12,19 @@
 
 <body>
 
-  <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">About</a>
-    <a href="#">Empathy</a>
-    <a href="#">Methodial</a>
-    <a href="#">Futuristic Individuality</a>
-    <a href="#">Contact</a>
+  <div id="navbar">
+    <a href="#home">
+        <img src="assets/textures/gradientCricle.png" alt="Logo" style="width:42px;height:42px;border:0;">
+    </a>
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
   </div>
 
   <div id="main">
 
-
-    <div id="webgl">
-    </div>
+  <div id="webgl">
+    <script src="lib/navigate.js"></script>
     <script src="/lib/Tween.min.js"></script>
     <script src="/lib/perlin.js"></script>
     <script src="/lib/dat.gui.min.js"></script>
@@ -34,15 +33,12 @@
     <!-- <script src="/lib/OrbitControls.js"></script> -->
     <script src="/js/main.js"></script>
 
-    <h2>Sidenav Push Example</h2>
-    <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-
+  </div>
   </div>
 
 
 
-  <script src="lib/navigate.js"></script>
+
 
   <!-- <script>
   function openNav() {

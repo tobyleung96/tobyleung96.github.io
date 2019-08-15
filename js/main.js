@@ -2,18 +2,31 @@ function init() {
 	var scene = new THREE.Scene();
 
 	// camera
-	var camera = new THREE.OrthographicCamera(
-		-15,
-		15,
-		15,
-		-15,
-		1,
-		1000
+	// var camera = new THREE.OrthographicCamera(
+	// 	-15,
+	// 	15,
+	// 	15,
+	// 	-15,
+	// 	1,
+	// 	1000
+	// );
+	// camera.position.z = 20;
+	// camera.position.x = 10;
+	// camera.position.y = 5;
+	// camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+	// perspective cam
+	var camera = new THREE.PerspectiveCamera(
+		45, // field of view
+		window.innerWidth / window.innerHeight, // aspect ratio
+		1, // near clipping plane
+		1000 // far clipping plane
 	);
-	camera.position.z = 20;
-	camera.position.x = 10;
-	camera.position.y = 5;
+	camera.position.z = 30;
+	camera.position.x = 0;
+	camera.position.y = 20;
 	camera.lookAt(new THREE.Vector3(0, 0, 0));
+
 
 	var particleMat = new THREE.PointsMaterial({
 		color: 'rgb(0, 255, 255)',
@@ -94,7 +107,7 @@ function init() {
 
 	// // renderer
 	var renderer = new THREE.WebGLRenderer();
-	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(window.innerWidth, window.innerHeight + 50);
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 	document.getElementById('webgl').appendChild(renderer.domElement);

@@ -27,3 +27,8 @@ body {
   background-color: #ddd;
   color: black;
 }
+
+#contactMenu {
+  text-align: right;
+  float: right;
+}

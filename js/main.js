@@ -22,9 +22,9 @@ function init() {
 		1, // near clipping plane
 		1000 // far clipping plane
 	);
-	camera.position.z = 30;
+	camera.position.z = 40;
 	camera.position.x = 0;
-	camera.position.y = 20;
+	camera.position.y = 0;
 	camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 
@@ -104,22 +104,48 @@ function init() {
 
 	scene.add(particleSystem3);
 
+var geometry = new THREE.CircleGeometry(10.5,50);
+var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+	material.transparent = true;
+	material.opacity = 0.0;
+var circle = new THREE.Mesh( geometry, material );
+	circle.position.z = 1;
+circle.name = circle;
+scene.add( circle );
+
+var geometry2 = new THREE.CircleGeometry(5.2,50);
+var material2 = new THREE.MeshBasicMaterial( { color: 0x00ff77 } );
+	material2.transparent = true;
+	material2.opacity = 0.0;
+var circle2 = new THREE.Mesh( geometry2, material2 );
+	circle2.position.z = 2;
+circle2.name = circle2;
+scene.add( circle2 );
+
+var geometry3 = new THREE.CircleGeometry(1.4,50);
+var material3 = new THREE.MeshBasicMaterial( { color: 0xffffff });
+	material3.transparent = true;
+	material3.opacity = 0.0;
+var circle3 = new THREE.Mesh( geometry3, material3 );
+	circle3.position.z = 3;
+circle3.name = circle3;
+scene.add( circle3 );
 
 	// // renderer
 	var renderer = new THREE.WebGLRenderer();
-	renderer.setSize(window.innerWidth, window.innerHeight + 70);
+	renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 	document.getElementById('webgl').appendChild(renderer.domElement);
   renderer.setClearColor('rgb(20, 20, 20)');
 
-	update(renderer, scene, camera );
+	update(renderer, scene, camera);
 
 	return scene;
 }
 
 
-function update(renderer, scene, camera ) {
+function update(renderer, scene, camera) {
 	renderer.render(scene, camera);
 
 	var particleSystem = scene.getObjectByName('particleSystem');

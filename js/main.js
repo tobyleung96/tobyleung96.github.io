@@ -1,31 +1,28 @@
-function init() {
-	var scene = new THREE.Scene();
+window.addEventListener('resize', onWindowResize, false);
 
-	// camera
-	// var camera = new THREE.OrthographicCamera(
-	// 	-15,
-	// 	15,
-	// 	15,
-	// 	-15,
-	// 	1,
-	// 	1000
-	// );
-	// camera.position.z = 20;
-	// camera.position.x = 10;
-	// camera.position.y = 5;
-	// camera.lookAt(new THREE.Vector3(0, 0, 0));
+var WIDTH = window.innerWidth;
+var HEIGHT = window.innerHeight;
+// var camera = new THREE.PerspectiveCamera(60, WIDTH / HEIGHT, 0.01, 100);
+var camera = new THREE.PerspectiveCamera(
+	45, // field of view
+	window.innerWidth / window.innerHeight, // aspect ratio
+	1, // near clipping plane
+	1000 // far clipping plane
+);
+camera.position.z = 40;
+camera.position.x = 0;
+camera.position.y = 0;
+camera.lookAt(new THREE.Vector3(0, 0, 0));
+var renderer = new THREE.WebGLRenderer({
+	canvas: document.querySelector('#webgl'),
+	antialias: true,
+});
 
-	// perspective cam
-	var camera = new THREE.PerspectiveCamera(
-		45, // field of view
-		window.innerWidth / window.innerHeight, // aspect ratio
-		1, // near clipping plane
-		1000 // far clipping plane
-	);
-	camera.position.z = 40;
-	camera.position.x = 0;
-	camera.position.y = 0;
-	camera.lookAt(new THREE.Vector3(0, 0, 0));
+var scene = new THREE.Scene();
+var interaction = new THREE.Interaction(renderer, scene, camera);
+
+
+
 
 
 	var particleMat = new THREE.PointsMaterial({
@@ -36,6 +33,7 @@ function init() {
 		blending: THREE.AdditiveBlending,
 		depthWrite: false
 	});
+		particleMat.name = 'particleMat';
 
 	var particleGeo = new THREE.SphereGeometry(10, 54, 54);
 
@@ -61,6 +59,7 @@ function init() {
 		blending: THREE.AdditiveBlending,
 		depthWrite: false
 	});
+		particleMat2.name = 'particleMat2';
 
 	var particleGeo2 = new THREE.SphereGeometry(5, 44, 44);
 
@@ -87,6 +86,7 @@ function init() {
 		blending: THREE.AdditiveBlending,
 		depthWrite: false
 	});
+	particleMat3.name = 'particleMat3';
 
 	var particleGeo3 = new THREE.SphereGeometry(1, 22, 22);
 
@@ -104,32 +104,38 @@ function init() {
 
 	scene.add(particleSystem3);
 
-var geometry = new THREE.CircleGeometry(10.5,50);
-var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-	material.transparent = true;
-	material.opacity = 0.0;
-var circle = new THREE.Mesh( geometry, material );
-	circle.position.z = 1;
-circle.name = circle;
-scene.add( circle );
+	var geometry = new THREE.CircleGeometry(10.5,50);
+	var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+		material.transparent = true;
+		material.opacity = 0.0;
+	var circle = new THREE.Mesh( geometry, material );
+		circle.position.z = 1;
+	circle.name = circle;
+	scene.add(circle);
 
-var geometry2 = new THREE.CircleGeometry(5.2,50);
-var material2 = new THREE.MeshBasicMaterial( { color: 0x00ff77 } );
-	material2.transparent = true;
-	material2.opacity = 0.0;
-var circle2 = new THREE.Mesh( geometry2, material2 );
-	circle2.position.z = 2;
-circle2.name = circle2;
-scene.add( circle2 );
+	var geometry2 = new THREE.CircleGeometry(5.2,50);
+	var material2 = new THREE.MeshBasicMaterial( { color: 0x00ff77 } );
+		material2.transparent = true;
+		material2.opacity = 0.0;
+	var circle2 = new THREE.Mesh( geometry2, material2 );
+		circle2.position.z = 2;
+	circle2.name = circle2;
+	scene.add(circle2);
 
-var geometry3 = new THREE.CircleGeometry(1.4,50);
-var material3 = new THREE.MeshBasicMaterial( { color: 0xffffff });
-	material3.transparent = true;
-	material3.opacity = 0.0;
-var circle3 = new THREE.Mesh( geometry3, material3 );
-	circle3.position.z = 3;
-circle3.name = circle3;
-scene.add( circle3 );
+	var geometry3 = new THREE.CircleGeometry(1.4,50);
+	var material3 = new THREE.MeshBasicMaterial( { color: 0xffffff });
+		material3.transparent = true;
+		material3.opacity = 0.0;
+	var circle3 = new THREE.Mesh( geometry3, material3 );
+		circle3.position.z = 3;
+	circle3.name = circle3;
+	scene.add(circle3);
+
+	var ambient = new THREE.AmbientLight( 0x666666 );
+	scene.add( ambient );
+	var light = new THREE.PointLight(0xffffff);
+	light.position.set(20, 50, 10);
+	scene.add(light);
 
 	// // renderer
 	var renderer = new THREE.WebGLRenderer();
@@ -139,27 +145,26 @@ scene.add( circle3 );
 	document.getElementById('webgl').appendChild(renderer.domElement);
   renderer.setClearColor('rgb(20, 20, 20)');
 
-	update(renderer, scene, camera);
-
-	return scene;
-}
 
 
-function update(renderer, scene, camera) {
-	renderer.render(scene, camera);
 
-	var particleSystem = scene.getObjectByName('particleSystem');
-	particleSystem.rotation.y += 0.007;
 
-	var particleSystem2 = scene.getObjectByName('particleSystem2');
-	particleSystem2.rotation.y -= 0.005;
+	function render() {
+		var particleSystem = scene.getObjectByName('particleSystem');
+		particleSystem.rotation.y += 0.007;
 
-	var particleSystem3 = scene.getObjectByName('particleSystem3');
-	particleSystem3.rotation.y += 0.001;
+		var particleSystem2 = scene.getObjectByName('particleSystem2');
+		particleSystem2.rotation.y -= 0.005;
 
-	requestAnimationFrame(function() {
-		update(renderer, scene, camera );
-	});
-}
+		var particleSystem3 = scene.getObjectByName('particleSystem3');
+		particleSystem3.rotation.y += 0.001;
+		renderer.render(scene, camera);
+		requestAnimationFrame(render);
+	}
+	render();
 
-var scene = init();
+	function onWindowResize() {
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+		renderer.setSize(window.innerWidth, window.innerHeight);
+	}

@@ -75,8 +75,9 @@
     var interaction = new THREE.Interaction(renderer, scene, camera);
 
     var cube = new THREE.Mesh(
-      new THREE.BoxGeometry(3, 3, 3),
-      new THREE.MeshPhongMaterial({ color: 0xffffff })
+      new THREE.BoxGeometry(0.1, 0.1, 0.1),
+      new THREE.MeshPhongMaterial({ color: 0xffffff }),
+      // transparent: true,
     );
     cube.cursor = 'pointer';
     cube.position.y = 0;
@@ -93,13 +94,13 @@
 // my shit
 var particleMat = new THREE.PointsMaterial({
   color: 'rgb(0, 255, 255)',
-  size: 0.1,
+  size: 0.15,
   map: new THREE.TextureLoader().load('/assets/textures/particle.jpg'),
   transparent: true,
   blending: THREE.AdditiveBlending,
-  depthWrite: false
+  depthWrite: false,
+  name: 'particleMat'
 });
-particleMat.name = 'particleMat';
 
 var particleGeo = new THREE.SphereGeometry(10, 54, 54);
 
@@ -119,7 +120,7 @@ scene.add(particleSystem);
 
 var particleMat2 = new THREE.PointsMaterial({
   color: 'rgb(169, 169, 169)',
-  size: 0.1,
+  size: 0.15,
   map: new THREE.TextureLoader().load('/assets/textures/particle.jpg'),
   transparent: true,
   blending: THREE.AdditiveBlending,
@@ -146,7 +147,7 @@ scene.add(particleSystem2);
 
 var particleMat3 = new THREE.PointsMaterial({
   color: 'rgb(255, 255, 255)',
-  size: 0.1,
+  size: 0.15,
   map: new THREE.TextureLoader().load('/assets/textures/particle.jpg'),
   transparent: true,
   blending: THREE.AdditiveBlending,
@@ -170,88 +171,85 @@ particleSystem3.name = 'particleSystem3';
 
 scene.add(particleSystem3);
 
-var geometry = new THREE.CircleGeometry(10.5,50);
+var geometry = new THREE.CircleGeometry(5.3,50);
 var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
   material.transparent = true;
   material.opacity = 0.0;
 var circle = new THREE.Mesh( geometry, material );
-  circle.position.z = 1;
+  circle.position.z = 20;
 circle.name = circle;
 scene.add(circle);
 
-var geometry2 = new THREE.CircleGeometry(5.2,50);
+var geometry2 = new THREE.CircleGeometry(2.55,50);
 var material2 = new THREE.MeshBasicMaterial( { color: 0x00ff77 } );
   material2.transparent = true;
   material2.opacity = 0.0;
 var circle2 = new THREE.Mesh( geometry2, material2 );
-  circle2.position.z = 2;
+  circle2.position.z = 21;
 circle2.name = circle2;
 scene.add(circle2);
 
-var geometry3 = new THREE.CircleGeometry(1.4,50);
+var geometry3 = new THREE.CircleGeometry(0.62,50);
 var material3 = new THREE.MeshBasicMaterial( { color: 0xffffff });
   material3.transparent = true;
   material3.opacity = 0.0;
 var circle3 = new THREE.Mesh( geometry3, material3 );
-  circle3.position.z = 3;
+  circle3.position.z = 22;
 circle3.name = circle3;
 scene.add(circle3);
 
 //interaction stuff hover/glow
-    // circle.on('pointerdown', function(ev) {
-    //   glow11(document.querySelector('#pointerdown'));
-    //   console.log('%c' + cube.name + '%c => pointerdown', 'color: #fff; background: #41b882; padding: 3px 4px;', 'color: #41b882; background: #fff;');
-    // });
-    // circle.on('pointerdown', function(ev) {
-    //   glow12(document.querySelector('#pointerdown'));
-    //   console.log('%c' + cube.name + '%c => pointerdown', 'color: #fff; background: #41b882; padding: 3px 4px;', 'color: #41b882; background: #fff;');
-    // });
-    // circle1.on('pointerdown', function(ev) {
-    //   glow21(document.querySelector('#pointerdown'));
-    //   console.log('%c' + cube.name + '%c => pointerdown', 'color: #fff; background: #41b882; padding: 3px 4px;', 'color: #41b882; background: #fff;');
-    // });
-    // circle1.on('pointerdown', function(ev) {
-    //   glow22(document.querySelector('#pointerdown'));
-    //   console.log('%c' + cube.name + '%c => pointerdown', 'color: #fff; background: #41b882; padding: 3px 4px;', 'color: #41b882; background: #fff;');
-    // });
-    // circle2.on('pointerdown', function(ev) {
-    //   glow31(document.querySelector('#pointerdown'));
-    //   console.log('%c' + cube.name + '%c => pointerdown', 'color: #fff; background: #41b882; padding: 3px 4px;', 'color: #41b882; background: #fff;');
-    // });
-    // circle2.on('pointerdown', function(ev) {
-    //   glow32(document.querySelector('#pointerdown'));
-    //   console.log('%c' + cube.name + '%c => pointerdown', 'color: #fff; background: #41b882; padding: 3px 4px;', 'color: #41b882; background: #fff;');
-    // });
-
-//this is what is giving me the error pt1
     circle.on('mouseover', function(ev) {
-      glow11(document.scene.getObjectByName('circle'));
-      console.log("glow12");
+      const particleSystem_obj = scene.getObjectByName('particleSystem');
+      glow11(particleSystem_obj);
+      console.log("glow11");
     });
     circle.on('mouseout', function(ev) {
-      glow12(scene.getObjectByName('circle'));
+      const particleSystem_obj = scene.getObjectByName('particleSystem');
+      glow12(particleSystem_obj);
       console.log("glow12");
     });
-//
-// //interaction stuff redirect
-//     circle.on('click', function(ev) {
-//       redirect1(scene.getObjectByName('circle'));
-//       console.log("redirect1");
-//     });
-//     circle1.on('click', function(ev) {
-//       redirect2(document.querySelector('#pointerdown'));
-//       console.log('%c' + cube.name + '%c => pointerdown', 'color: #fff; background: #41b882; padding: 3px 4px;', 'color: #41b882; background: #fff;');
-//     });
-//     circle2.on('click', function(ev) {
-//       redirect3(document.querySelector('#pointerdown'));
-//       console.log('%c' + cube.name + '%c => pointerdown', 'color: #fff; background: #41b882; padding: 3px 4px;', 'color: #41b882; background: #fff;');
-//     });
+    circle2.on('mouseover', function(ev) {
+      const particleSystem2_obj = scene.getObjectByName('particleSystem2');
+      glow21(particleSystem2_obj);
+      console.log("glow21");
+    });
+    circle2.on('mouseout', function(ev) {
+      const particleSystem2_obj = scene.getObjectByName('particleSystem2');
+      glow22(particleSystem2_obj);
+      console.log("glow22");
+    });
+    circle3.on('mouseover', function(ev) {
+      const particleSystem3_obj = scene.getObjectByName('particleSystem3');
+      glow31(particleSystem3_obj);
+      console.log("glow31");
+    });
+    circle3.on('mouseout', function(ev) {
+      const particleSystem3_obj = scene.getObjectByName('particleSystem3');
+      glow32(particleSystem3_obj);
+      console.log("glow32");
+    });
+
+//interaction stuff redirect
+    circle.on('click', function(ev) {
+      redirect1(scene.getObjectByName('circle'));
+      console.log("redirect1");
+    });
+    circle2.on('click', function(ev) {
+      redirect2(scene.getObjectByName('circle2'));
+      console.log("redirect2");
+    });
+    circle3.on('click', function(ev) {
+      redirect3(scene.getObjectByName('circle3'));
+      console.log("redirect3");
+    });
+
 
     function render() {
       cube.rotation.y += 0.01;
       particleSystem.rotation.y += 0.007;
-      particleSystem2.rotation.y -= 0.005;
-      particleSystem3.rotation.y += 0.001;
+      particleSystem2.rotation.y -= 0.009;
+      particleSystem3.rotation.y += 0.011;
       renderer.render(scene, camera);
       requestAnimationFrame(render);
     }
@@ -271,39 +269,37 @@ scene.add(circle3);
     //   }, 300);
     // }
 
-    // function redirect1(dom) {
-    //
-    // }
-    // function redirect2(dom) {
-    //
-    // }
-    // function redirect3(dom) {
-    //
-    // }
+//Interaction functions (glow/hover)
+    function glow11(particleSystem_param) {
+      particleSystem_param.material.size = 0.5;
 
-//this is what is giving me the error pt2
-    function glow11(dom) {
-	    var dots = scene.getObjectByName('particleSystem');
-      dots.size = 0.5;
     }
-    function glow12(dom) {
-      var dots = scene.getObjectByName('particleSystem');
-      dots.size = 0.1;
-  }
 
-    // }
-    // function glow21(dom) {
-		//     var particleMat.size = 0.2;
-    // }
-    // function glow22(dom) {
-		//     var particleMat.size = 0.1;
-    // }
-    // function glow31(dom) {
-		//     var particleMat.size = 0.2;
-    // }
-    // function glow32(dom) {
-		//     var particleMat.size = 0.2;
-    // }
+    function glow12(particleSystem_param) {
+      particleSystem_param.material.size = 0.15;
+    }
+    function glow21(particleSystem2_param) {
+      particleSystem2_param.material.size = 0.5;
+    }
+    function glow22(particleSystem2_param) {
+      particleSystem2_param.material.size = 0.15;
+    }
+    function glow31(particleSystem3_param) {
+      particleSystem3_param.material.size = 0.5;
+    }
+    function glow32(particleSystem3_param) {
+      particleSystem3_param.material.size = 0.15;
+    }
+//Interaction functions (redirect)
+    function redirect1(dom) {
+
+    }
+    function redirect2(dom) {
+
+    }
+    function redirect3(dom) {
+
+    }
       </script>
 </body>
 

@@ -198,41 +198,42 @@ var circle3 = new THREE.Mesh( geometry3, material3 );
 circle3.name = circle3;
 scene.add(circle3);
 
-      // var glowUp11;
+      var glowUp1;
+      var glowUp2;
+      var glowUp3;
 
 //interaction stuff hover/glow
     circle.on('mouseover', function(ev) {
       const particleSystem_obj = scene.getObjectByName('particleSystem');
-      glow11(particleSystem_obj);
-      // var glowUp11 = true;
-      console.log("glow11a");
+      glowUp1 = true;
+      console.log("glow1a");
     });
     circle.on('mouseout', function(ev) {
       const particleSystem_obj = scene.getObjectByName('particleSystem');
-      glow12(particleSystem_obj);
-      console.log("glow12");
+      glowUp1 = false;
+      console.log("glow1b");
     });
-//     circle2.on('mouseover', function(ev) {
-//       const particleSystem2_obj = scene.getObjectByName('particleSystem2');
-//       glow21(particleSystem2_obj);
-//       console.log("glow21");
-//     });
-//     circle2.on('mouseout', function(ev) {
-//       const particleSystem2_obj = scene.getObjectByName('particleSystem2');
-//       glow22(particleSystem2_obj);
-//       console.log("glow22");
-//     });
-//     circle3.on('mouseover', function(ev) {
-//       const particleSystem3_obj = scene.getObjectByName('particleSystem3');
-//       glow31(particleSystem3_obj);
-//       console.log("glow31");
-//     });
-//     circle3.on('mouseout', function(ev) {
-//       const particleSystem3_obj = scene.getObjectByName('particleSystem3');
-//       glow32(particleSystem3_obj);
-//       console.log("glow32");
-//     });
-//
+    circle2.on('mouseover', function(ev) {
+      const particleSystem2_obj = scene.getObjectByName('particleSystem2');
+      glowUp2 = true;
+      console.log("glow2a");
+    });
+    circle2.on('mouseout', function(ev) {
+      const particleSystem2_obj = scene.getObjectByName('particleSystem2');
+      glowUp2 = false;
+      console.log("glow2b");
+    });
+    circle3.on('mouseover', function(ev) {
+      const particleSystem3_obj = scene.getObjectByName('particleSystem3');
+      glowUp3 = true;
+      console.log("glow3a");
+    });
+    circle3.on('mouseout', function(ev) {
+      const particleSystem3_obj = scene.getObjectByName('particleSystem3');
+      glowUp3 = false;
+      console.log("glow3b");
+    });
+
 // //interaction stuff redirect
 //     circle.on('click', function(ev) {
 //       redirect1(scene.getObjectByName('circle'));
@@ -255,11 +256,39 @@ scene.add(circle3);
       particleSystem2.rotation.y -= 0.009;
       particleSystem3.rotation.y += 0.011;
 
-      // const particleSystem_obj = scene.getObjectByName('particleSystem');
-      // if (glowUp11==true){
-      //     particleSystem_param.material.size += 0.01;
-      //       console.log("glow11b");
-      // }
+      //glowUp1
+      const particleSystem_obj = scene.getObjectByName('particleSystem');
+      if (glowUp1==true && particleSystem_obj.material.size < 0.5){
+          particleSystem_obj.material.size += 0.01;
+            console.log("glow1c");
+      }
+      if (glowUp1==false && particleSystem_obj.material.size < 0.51 && particleSystem_obj.material.size > 0.15){
+          particleSystem_obj.material.size -= 0.01;
+            console.log("glow1d");
+      }
+
+      //glowUp2
+      const particleSystem2_obj = scene.getObjectByName('particleSystem2');
+      if (glowUp2==true && particleSystem2_obj.material.size < 0.5){
+          particleSystem2_obj.material.size += 0.01;
+            console.log("glow2c");
+      }
+      if (glowUp2==false && particleSystem2_obj.material.size < 0.51 && particleSystem2_obj.material.size > 0.15){
+          particleSystem2_obj.material.size -= 0.01;
+            console.log("glow2d");
+      }
+
+      //glowUp3
+      const particleSystem3_obj = scene.getObjectByName('particleSystem3');
+      if (glowUp3==true && particleSystem3_obj.material.size < 0.5){
+          particleSystem3_obj.material.size += 0.01;
+            console.log("glow3c");
+      }
+      if (glowUp3==false && particleSystem3_obj.material.size < 0.51 && particleSystem3_obj.material.size > 0.15){
+          particleSystem3_obj.material.size -= 0.01;
+            console.log("glow3d");
+      }
+
 
       renderer.render(scene, camera);
       requestAnimationFrame(render);
@@ -284,37 +313,38 @@ scene.add(circle3);
     function glow11(particleSystem_param) {
       // particleSystem_param.material.size += 0.01;
 
-      var i;
-      for (i = 0; i < 350; i++){
-        var delayInMilliseconds = 1000; //1 second
-        var myVar = setTimeout(function() {
-          //your code to be executed after 1 second
-            particleSystem_param.material.size += 0.001;
-
-        console.log(i);
-        }, delayInMilliseconds);
-      }
-      // var glowUp11 = true;
-      clearInterval(myVar)
-      console.log("glow11c");
+      // var i;
+      // for (i = 0; i < 350; i++){
+      //   var delayInMilliseconds = 1000; //1 second
+      //   var myVar = setTimeout(function() {
+      //     //your code to be executed after 1 second
+      //       particleSystem_param.material.size += 0.001;
+      //
+      //   console.log(i);
+      //   }, delayInMilliseconds);
+      // }
+      // // var glowUp11 = true;
+      // // clearInterval(myVar)
+      // console.log("glow11c");
     }
 
     function glow12(particleSystem_param) {
       // particleSystem_param.material.size = 0.15;
 
-      var i;
-      for (i = 0; i < 350; i++){
-        var delayInMilliseconds = 25; //1 second
-        var myVar = setTimeout(function() {
-          //your code to be executed after 1 second
-            particleSystem_param.material.size -= 0.001;
-          }, delayInMilliseconds);
-        console.log(i);
-      }
-      // var glowUp11 = true;
-      clearInterval(myVar)
-      console.log("glow12c");
+      // var i;
+      // for (i = 0; i < 350; i++){
+      //   var delayInMilliseconds = 25; //1 second
+      //   var myVar = setTimeout(function() {
+      //     //your code to be executed after 1 second
+      //       particleSystem_param.material.size -= 0.001;
+      //     }, delayInMilliseconds);
+      //   console.log(i);
+      // }
+      // // var glowUp11 = true;
+      // clearInterval(myVar)
+      // console.log("glow12c");
     }
+
     function glow21(particleSystem2_param) {
       particleSystem2_param.material.size = 0.5;
     }

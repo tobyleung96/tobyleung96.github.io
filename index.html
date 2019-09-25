@@ -13,7 +13,7 @@
 <body>
 
   <div id="navbar">
-    <a href="#home" style="padding-bottom: 11px;">
+    <a href="index.html" style="padding-bottom: 11px;">
         <img src="/assets/textures/gradientCircle.png" alt="Logo">
     </a>
     <a href="futuristicIndividuality.html">Futuristic Individuality</a>
@@ -23,21 +23,35 @@
   </div>
 
   <canvas id="webgl"></canvas>
+    <!-- <script src="/lib/OBJLoader.js"></script> -->
     <script src="lib/navigate.js"></script>
     <script src="/lib/Tween.min.js"></script>
     <script src="/lib/perlin.js"></script>
     <script src="/lib/dat.gui.min.js"></script>
-    <script src="/lib/three.js"></script>
-    <script src="/lib/OBJLoader.js"></script>
+    <script src="/build/three.js"></script>
+    <!-- <script src="/build/three.module.js"></script> -->
+    <!-- <script src="/build/LoadingManager.js"></script>
+    <script src="/build/ObjectLoader.js"></script>
+    <script src="/build/OBJLoader.js"></script> -->
     <!-- <script src="/lib/OrbitControls.js"></script> -->
-    <!-- <script src="/js/main.js"></script> -->
+    <!-- <script src="/js/main0.js"></script> -->
     <!-- <script src="/js/main2.js"></script> -->
     <!-- <script src="/js/practice2.js"></script> -->
     <script src="/js/threex.domevent.js"></script>
     <script src="../js/three.min.js"></script>
     <script src="../js/three.interaction.js"></script>
-    <script>
+    <script type="module">
+
+    // import * as THREE from './build/three.module.js';
+    import { OBJLoader } from './lib/OBJLoader.js';
+
     window.addEventListener('resize', onWindowResize, false);
+
+    // import * as THREE from '../build/three.module.js';
+		// import { OBJLoader } from '/lib/OBJLoader.js';
+		// import { OBJLoader } from 'OBJLoader3.js';
+
+
 
 // // ortho cam
 //     var WIDTH = window.innerWidth;
@@ -198,19 +212,117 @@ var circle3 = new THREE.Mesh( geometry3, material3 );
 circle3.name = circle3;
 scene.add(circle3);
 
+// var geometry = new THREE.BoxGeometry( 7, 1, 1 );
+// var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+// var trialCube = new THREE.Mesh( geometry, material );
+//   trialCube.position.y = -15;
+// trialCube.name = 'trialCube';
+// scene.add(trialCube);
+// cube.name = 'trialCube';
+
+//PRACTICE LIGHTS IN CASE MATERIAL
+var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+scene.add( ambientLight );
+
+var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+camera.add( pointLight );
+scene.add( camera );
+
+// //EXAMPLE OF LOADING attempts at loading external geometry
+// //COMMENT OUT BUT DONT DELETE
+//         var object;
+// // manager
+// 				function loadModel() {
+// 					object.traverse( function ( child ) {
+// 						if ( child.isMesh ) child.material.map = texture;
+// 					} );
+// 					// object.position.y = - 95;
+//           object.translateX(5.0);
+//           object.name = 'trialFace';
+// 					scene.add( object );
+//
+//           const trialFace_obj = scene.getObjectByName('trialFace');
+//           trialFace_obj.scale.set(30,30,30);
+// 				}
+// 				var manager = new THREE.LoadingManager( loadModel );
+// 				manager.onProgress = function ( item, loaded, total ) {
+// 					console.log( item, loaded, total );
+// 				};
+// 				// texture
+// 				var textureLoader = new THREE.TextureLoader( manager );
+// 				var texture = textureLoader.load( 'assets/models/head/Face_Color.jpg' );
+// 				// model
+// 				function onProgress( xhr ) {
+// 					if ( xhr.lengthComputable ) {
+// 						var percentComplete = xhr.loaded / xhr.total * 100;
+// 						console.log( 'model ' + Math.round( percentComplete, 2 ) + '% downloaded' );
+// 					}
+// 				}
+// 				function onError() {}
+// 				var loader = new OBJLoader( manager );
+// 				loader.load( 'assets/models/head/lee-perry-smith-head-scan.obj', function ( obj ) {
+// 					object = obj;
+// 				}, onProgress, onError );
+// 				//
+
+//LOADING TITLE1
+        var object;
+// manager
+				function loadModel() {
+					object.traverse( function ( child ) {
+						if ( child.isMesh ) child.material.map = texture;
+					} );
+					// object.position.y = - 95;
+          object.translateX(-13.0);
+          object.translateY(-18.0);
+          // object.translateY(-5.0);
+          // object.rotateX(Math.pi/2)
+          object.rotateX(Math.PI/2);
+          object.name = 'title1';
+					scene.add( object );
+
+          const title1_obj = scene.getObjectByName('title1');
+          title1_obj.scale.set(1,1,1);
+				}
+				var manager = new THREE.LoadingManager( loadModel );
+				manager.onProgress = function ( item, loaded, total ) {
+					console.log( item, loaded, total );
+				};
+				// texture
+				var textureLoader = new THREE.TextureLoader( manager );
+				var texture = textureLoader.load( 'assets/models/head/Face_Color.jpg' );
+				// model
+				function onProgress( xhr ) {
+					if ( xhr.lengthComputable ) {
+						var percentComplete = xhr.loaded / xhr.total * 100;
+						console.log( 'model ' + Math.round( percentComplete, 2 ) + '% downloaded' );
+					}
+				}
+				function onError() {}
+				var loader = new OBJLoader( manager );
+				loader.load( 'assets/models/textModels/futuristicIndividualityText.obj', function ( obj ) {
+					object = obj;
+				}, onProgress, onError );
+				//
+
+
       var glowUp1;
       var glowUp2;
       var glowUp3;
+      var title1Translate;
 
 //interaction stuff hover/glow
     circle.on('mouseover', function(ev) {
       const particleSystem_obj = scene.getObjectByName('particleSystem');
+      const title1_obj = scene.getObjectByName('title1');
       glowUp1 = true;
+      title1Translate = true;
       console.log("glow1a");
     });
     circle.on('mouseout', function(ev) {
       const particleSystem_obj = scene.getObjectByName('particleSystem');
       glowUp1 = false;
+      title1Translate = false;
       console.log("glow1b");
     });
     circle2.on('mouseover', function(ev) {
@@ -287,6 +399,17 @@ scene.add(circle3);
             console.log("glow3d");
       }
 
+      //trialCubeTranslate animation
+      const title1_obj = scene.getObjectByName('title1');
+      if (title1Translate==true && title1_obj.position.y < 0){
+          title1_obj.position.y += 0.15;
+            console.log("title1TranslateC");
+      }
+      if (title1Translate==false && title1_obj.position.y > -18){
+          title1_obj.position.y -= 0.15;
+            console.log("title1TranslateD");
+      }
+
 
       renderer.render(scene, camera);
       requestAnimationFrame(render);
@@ -341,6 +464,7 @@ scene.add(circle3);
 
     }
       </script>
+
 
     <!-- <div id="menuTitle">
       <p>title</p>

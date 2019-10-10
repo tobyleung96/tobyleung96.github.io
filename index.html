@@ -6,6 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" type="text/css" href="styles/all.css" media="all" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gill+Sans">
 
   <title>Toby Leung - Portfolio</title>
 </head>
@@ -16,42 +17,29 @@
     <a href="index.html" style="padding-bottom: 11px;">
         <img src="/assets/textures/gradientCircle.png" alt="Logo">
     </a>
-    <a href="futuristicIndividuality.html">Futuristic Individuality</a>
-    <a href="methodical.html">Methodical</a>
-    <a href="empathy.html">Empathy</a>
-    <a href="contact.html" id="contactMenu">Contact</a>
+    <a href="futuristicIndividuality.html">FUTURISTIC INDIVIDUALITY</a>
+    <a href="methodical.html">METHODICAL</a>
+    <a href="empathy.html">EMPATHY</a>
+    <a href="contact.html" id="contactMenu">CONTACT</a>
   </div>
 
   <canvas id="webgl"></canvas>
-    <!-- <script src="/lib/OBJLoader.js"></script> -->
     <script src="lib/navigate.js"></script>
     <script src="/lib/Tween.min.js"></script>
     <script src="/lib/perlin.js"></script>
     <script src="/lib/dat.gui.min.js"></script>
     <script src="/build/three.js"></script>
-    <!-- <script src="/build/three.module.js"></script> -->
-    <!-- <script src="/build/LoadingManager.js"></script>
-    <script src="/build/ObjectLoader.js"></script>
-    <script src="/build/OBJLoader.js"></script> -->
-    <!-- <script src="/lib/OrbitControls.js"></script> -->
-    <!-- <script src="/js/main0.js"></script> -->
-    <!-- <script src="/js/main2.js"></script> -->
-    <!-- <script src="/js/practice2.js"></script> -->
     <script src="/js/threex.domevent.js"></script>
     <script src="../js/three.min.js"></script>
     <script src="../js/three.interaction.js"></script>
+    <script src="/lib/MTLLoader.js"></script>
     <script type="module">
 
-    // import * as THREE from './build/three.module.js';
+    import { DDSLoader } from './lib/DDSLoader.js';
     import { OBJLoader } from './lib/OBJLoader.js';
+    import { MTLLoader } from './lib/MTLLoader.js';
 
     window.addEventListener('resize', onWindowResize, false);
-
-    // import * as THREE from '../build/three.module.js';
-		// import { OBJLoader } from '/lib/OBJLoader.js';
-		// import { OBJLoader } from 'OBJLoader3.js';
-
-
 
 // // ortho cam
 //     var WIDTH = window.innerWidth;
@@ -87,23 +75,6 @@
 
 
     var interaction = new THREE.Interaction(renderer, scene, camera);
-
-    // var cube = new THREE.Mesh(
-    //   new THREE.BoxGeometry(0.1, 0.1, 0.1),
-    //   new THREE.MeshPhongMaterial({ color: 0xffffff }),
-    //   transparent: true,
-    // );
-    // cube.cursor = 'pointer';
-    // cube.position.y = 0;
-    // cube.position.z = 0;
-    // cube.name = 'cube';
-    // scene.add(cube);
-    //
-    // var ambient = new THREE.AmbientLight( 0x666666 );
-    // scene.add( ambient );
-    // var light = new THREE.PointLight(0xffffff);
-    // light.position.set(20, 50, 10);
-    // scene.add(light);
 
 // my shit
 var particleMat = new THREE.PointsMaterial({
@@ -212,104 +183,92 @@ var circle3 = new THREE.Mesh( geometry3, material3 );
 circle3.name = circle3;
 scene.add(circle3);
 
-// var geometry = new THREE.BoxGeometry( 7, 1, 1 );
-// var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-// var trialCube = new THREE.Mesh( geometry, material );
-//   trialCube.position.y = -15;
-// trialCube.name = 'trialCube';
-// scene.add(trialCube);
-// cube.name = 'trialCube';
-
 //PRACTICE LIGHTS IN CASE MATERIAL
 var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
 scene.add( ambientLight );
+// var ambientLight = new THREE.AmbientLight( 0xffffff, 0.8 );
+// scene.add( ambientLight );
 
 var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
 camera.add( pointLight );
 scene.add( camera );
 
-// //EXAMPLE OF LOADING attempts at loading external geometry
-// //COMMENT OUT BUT DONT DELETE
-//         var object;
-// // manager
-// 				function loadModel() {
-// 					object.traverse( function ( child ) {
-// 						if ( child.isMesh ) child.material.map = texture;
-// 					} );
-// 					// object.position.y = - 95;
-//           object.translateX(5.0);
-//           object.name = 'trialFace';
-// 					scene.add( object );
-//
-//           const trialFace_obj = scene.getObjectByName('trialFace');
-//           trialFace_obj.scale.set(30,30,30);
-// 				}
-// 				var manager = new THREE.LoadingManager( loadModel );
-// 				manager.onProgress = function ( item, loaded, total ) {
-// 					console.log( item, loaded, total );
-// 				};
-// 				// texture
-// 				var textureLoader = new THREE.TextureLoader( manager );
-// 				var texture = textureLoader.load( 'assets/models/head/Face_Color.jpg' );
-// 				// model
-// 				function onProgress( xhr ) {
-// 					if ( xhr.lengthComputable ) {
-// 						var percentComplete = xhr.loaded / xhr.total * 100;
-// 						console.log( 'model ' + Math.round( percentComplete, 2 ) + '% downloaded' );
-// 					}
-// 				}
-// 				function onError() {}
-// 				var loader = new OBJLoader( manager );
-// 				loader.load( 'assets/models/head/lee-perry-smith-head-scan.obj', function ( obj ) {
-// 					object = obj;
-// 				}, onProgress, onError );
-// 				//
+//THIS SHIT WORKS?!?!?!? LOADING MTL AND OBJ
+// title1 (futuristicIndividuality)
+var onProgress = function ( xhr ) {
+	if ( xhr.lengthComputable ) {
+		var percentComplete = xhr.loaded / xhr.total * 100;
+		console.log( Math.round( percentComplete, 2 ) + '% downloaded' );
+	}
+};
+var onError = function () { };
+var manager = new THREE.LoadingManager();
+new MTLLoader( manager )
+	.setPath( 'assets/models/textModels/' )
+	.load( 'futuristicIndividualityText.mtl', function ( materials ) {
+		materials.preload();
+		new OBJLoader( manager )
+			.setMaterials( materials )
+			.setPath( 'assets/models/textModels/' )
+			.load( 'futuristicIndividualityText.obj', function ( object ) {
 
-//LOADING TITLE1
-        var object;
-// manager
-				function loadModel() {
-					object.traverse( function ( child ) {
-						if ( child.isMesh ) child.material.map = texture;
-					} );
-					// object.position.y = - 95;
-          object.translateX(-13.0);
-          object.translateY(-18.0);
-          // object.translateY(-5.0);
-          // object.rotateX(Math.pi/2)
-          object.rotateX(Math.PI/2);
-          object.name = 'title1';
-					scene.add( object );
+        object.scale.set(0.5,0.5,0.5);
+        object.translateY(-13.0);
+        object.translateZ(10.0);
+        object.rotateX(Math.PI/2);
+        object.name = 'title1';
 
-          const title1_obj = scene.getObjectByName('title1');
-          title1_obj.scale.set(1,1,1);
-				}
-				var manager = new THREE.LoadingManager( loadModel );
-				manager.onProgress = function ( item, loaded, total ) {
-					console.log( item, loaded, total );
-				};
-				// texture
-				var textureLoader = new THREE.TextureLoader( manager );
-				var texture = textureLoader.load( 'assets/models/head/Face_Color.jpg' );
-				// model
-				function onProgress( xhr ) {
-					if ( xhr.lengthComputable ) {
-						var percentComplete = xhr.loaded / xhr.total * 100;
-						console.log( 'model ' + Math.round( percentComplete, 2 ) + '% downloaded' );
-					}
-				}
-				function onError() {}
-				var loader = new OBJLoader( manager );
-				loader.load( 'assets/models/textModels/futuristicIndividualityText.obj', function ( obj ) {
-					object = obj;
-				}, onProgress, onError );
-				//
+				scene.add( object );
+			}, onProgress, onError );
+	} );
+// title2 (methodical)
+  var manager2 = new THREE.LoadingManager();
+  new MTLLoader( manager2 )
+    .setPath( 'assets/models/textModels/' )
+    .load( 'methodicalText.mtl', function ( materials ) {
+      materials.preload();
+      new OBJLoader( manager2 )
+        .setMaterials( materials )
+        .setPath( 'assets/models/textModels/' )
+        .load( 'methodicalText.obj', function ( object2 ) {
+
+          object2.scale.set(0.5,0.5,0.5);
+          object2.translateY(-13.0);
+          object2.translateZ(10.0);
+          object2.rotateX(Math.PI/2);
+          object2.name = 'title2';
+
+          scene.add( object2 );
+        }, onProgress, onError );
+    } );
+  // title3 (empathy)
+    var manager3 = new THREE.LoadingManager();
+    new MTLLoader( manager3 )
+      .setPath( 'assets/models/textModels/' )
+      .load( 'empathyText.mtl', function ( materials ) {
+        materials.preload();
+        new OBJLoader( manager3 )
+          .setMaterials( materials )
+          .setPath( 'assets/models/textModels/' )
+          .load( 'empathyText.obj', function ( object3 ) {
+
+            object3.scale.set(0.5,0.5,0.5);
+            object3.translateY(-13.0);
+            object3.translateZ(10.0);
+            object3.rotateX(Math.PI/2);
+            object3.name = 'title3';
+
+            scene.add( object3 );
+          }, onProgress, onError );
+      } );
 
 
       var glowUp1;
       var glowUp2;
       var glowUp3;
       var title1Translate;
+      var title2Translate;
+      var title3Translate;
 
 //interaction stuff hover/glow
     circle.on('mouseover', function(ev) {
@@ -327,22 +286,28 @@ scene.add( camera );
     });
     circle2.on('mouseover', function(ev) {
       const particleSystem2_obj = scene.getObjectByName('particleSystem2');
+      const title2_obj = scene.getObjectByName('title2');
       glowUp2 = true;
+      title2Translate = true;
       console.log("glow2a");
     });
     circle2.on('mouseout', function(ev) {
       const particleSystem2_obj = scene.getObjectByName('particleSystem2');
       glowUp2 = false;
+      title2Translate = false;
       console.log("glow2b");
     });
     circle3.on('mouseover', function(ev) {
       const particleSystem3_obj = scene.getObjectByName('particleSystem3');
+      const title3_obj = scene.getObjectByName('title3');
       glowUp3 = true;
+      title3Translate = true;
       console.log("glow3a");
     });
     circle3.on('mouseout', function(ev) {
       const particleSystem3_obj = scene.getObjectByName('particleSystem3');
       glowUp3 = false;
+      title3Translate = false;
       console.log("glow3b");
     });
 
@@ -352,14 +317,12 @@ scene.add( camera );
       console.log("redirect1a");
     });
     circle2.on('click', function(ev) {
-      const particleSystem3_obj = scene.getObjectByName('particleSystem3');
-      redirect2(particleSystem3_obj);
-      console.log("redirect2");
+      redirect2(scene.getObjectByName('circle2'));
+      console.log("redirect2a");
     });
     circle3.on('click', function(ev) {
-      const particleSystem3_obj = scene.getObjectByName('particleSystem3');
-      redirect3(particleSystem3_obj);
-      console.log("redirect3");
+      redirect3(scene.getObjectByName('circle3'));
+      console.log("redirect3a");
     });
 
     function render() {
@@ -399,17 +362,34 @@ scene.add( camera );
             console.log("glow3d");
       }
 
-      //trialCubeTranslate animation
+      //titleTranslate animation
       const title1_obj = scene.getObjectByName('title1');
-      if (title1Translate==true && title1_obj.position.y < 0){
+      if (title1Translate==true && title1_obj.position.y < -9.5){
           title1_obj.position.y += 0.15;
             console.log("title1TranslateC");
       }
-      if (title1Translate==false && title1_obj.position.y > -18){
+      if (title1Translate==false && title1_obj.position.y > -13){
           title1_obj.position.y -= 0.15;
             console.log("title1TranslateD");
       }
-
+      const title2_obj = scene.getObjectByName('title2');
+      if (title2Translate==true && title2_obj.position.y < -9.5){
+          title2_obj.position.y += 0.15;
+            console.log("title2TranslateC");
+      }
+      if (title2Translate==false && title2_obj.position.y > -13){
+          title2_obj.position.y -= 0.15;
+            console.log("title2TranslateD");
+      }
+      const title3_obj = scene.getObjectByName('title3');
+      if (title3Translate==true && title3_obj.position.y < -9.5){
+          title3_obj.position.y += 0.15;
+            console.log("title3TranslateC");
+      }
+      if (title3Translate==false && title3_obj.position.y > -13){
+          title3_obj.position.y -= 0.15;
+            console.log("title3TranslateD");
+      }
 
       renderer.render(scene, camera);
       requestAnimationFrame(render);
@@ -422,53 +402,20 @@ scene.add( camera );
       renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
-    // function blink(dom) {
-    //   clearTimeout(dom.timer);
-    //   dom.className = 'marker active';
-    //   dom.timer = setTimeout(function(){
-    //     dom.className = 'marker';
-    //   }, 300);
-    // }
-
-// //Interaction functions (glow/hover)
-//     function glow11(particleSystem_param) {
-//       // particleSystem_param.material.size += 0.01;
-//       // console.log("glow11c");
-//     }
-//     function glow12(particleSystem_param) {
-//       // particleSystem_param.material.size = 0.15;
-//       // console.log("glow12c");
-//     }
-//     function glow21(particleSystem2_param) {
-//       particleSystem2_param.material.size = 0.5;
-//     }
-//     function glow22(particleSystem2_param) {
-//       particleSystem2_param.material.size = 0.15;
-//     }
-//     function glow31(particleSystem3_param) {
-//       particleSystem3_param.material.size = 0.5;
-//     }
-//     function glow32(particleSystem3_param) {
-//       particleSystem3_param.material.size = 0.15;
-//     }
-
 //Interaction functions (redirect)
     function redirect1(dom) {
       location.replace("futuristicindividuality.html")
       console.log("redirect1b")
     }
     function redirect2(dom) {
-
+      location.replace("methodical.html")
+      console.log("redirect2b")
     }
     function redirect3(dom) {
-
+      location.replace("empathy.html")
+      console.log("redirect3b")
     }
       </script>
-
-
-    <!-- <div id="menuTitle">
-      <p>title</p>
-    </div> -->
 
 </body>
 

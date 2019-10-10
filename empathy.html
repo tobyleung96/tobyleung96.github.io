@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="styles/all.css" media="all" />
+
+  <title>Toby Leung - Futuristic Individuality</title>
+</head>
+
+<body>
+
+  <div id="navbar">
+    <a href="index.html" style="padding-bottom: 11px;">
+        <img src="/assets/textures/gradientCircle.png" alt="Logo">
+    </a>
+    <a href="futuristicIndividuality.html">Futuristic Individuality</a>
+    <a href="methodical.html">Methodical</a>
+    <a href="empathy.html">Empathy</a>
+    <a href="contact.html" id="contactMenu">Contact</a>
+  </div>
+
+  <canvas id="webgl"></canvas>
+    <script src="lib/navigate.js"></script>
+    <script src="/lib/Tween.min.js"></script>
+    <script src="/lib/perlin.js"></script>
+    <script src="/lib/dat.gui.min.js"></script>
+    <script src="/build/three.js"></script>
+    <script src="/js/threex.domevent.js"></script>
+    <script src="../js/three.min.js"></script>
+    <script src="../js/three.interaction.js"></script>
+    <script src="/lib/MTLLoader.js"></script>
+    <script type="module">
+
+    import { DDSLoader } from './lib/DDSLoader.js';
+    import { OBJLoader } from './lib/OBJLoader.js';
+    import { MTLLoader } from './lib/MTLLoader.js';
+
+    var loaded1;
+    var loaded15;
+    var loaded2;
+    var loaded3;
+    var loaded4;
+    var loaded6;
+    var loaded7;
+    var everythingLoaded;
+    var shiftUp1;
+    var shiftUp15;
+    var shiftUp2;
+    var shiftUp3;
+    var shiftUp4;
+    var shiftUp6;
+    var shiftUp7;
+
+
+    window.addEventListener('resize', onWindowResize, false);
+
+// ortho cam
+    var WIDTH = window.innerWidth;
+    var HEIGHT = window.innerHeight;
+    var camera = new THREE.OrthographicCamera(
+    	-WIDTH/50,
+    	WIDTH/50,
+    	HEIGHT/50,
+    	-HEIGHT/50,
+      // -10,10,10,-10,
+    	0.1,
+    	1000
+    );
+    camera.position.z = 100;
+    camera.position.x = 100;
+    camera.position.y = 100;
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+    // var WIDTH = window.innerWidth;
+    // var HEIGHT = window.innerHeight;
+    // var camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 1, 100);
+    // camera.position.z = 40;
+    // camera.position.x = 0;
+    // camera.position.y = 0;
+    // camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+    var renderer = new THREE.WebGLRenderer({
+      canvas: document.querySelector('#webgl'),
+      antialias: true,
+    });
+    renderer.setClearColor('rgb(20, 20, 20)');
+    renderer.setSize(WIDTH, HEIGHT);
+    var scene = new THREE.Scene();
+
+
+    var interaction = new THREE.Interaction(renderer, scene, camera);
+
+// my shit
+
+//PRACTICE LIGHTS IN CASE MATERIAL
+var ambientLight = new THREE.AmbientLight( 0xffffff, 0.5 );
+scene.add( ambientLight );
+// var ambientLight = new THREE.AmbientLight( 0xffffff, 0.8 );
+// scene.add( ambientLight );
+
+var pointLight = new THREE.PointLight( 0xffffff, 0.2 );
+camera.add( pointLight );
+scene.add( camera );
+
+var directionalLightFib = new THREE.DirectionalLight( 0xffff00, 0 );
+  directionalLightFib.position.x = -6.0;
+  directionalLightFib.position.y = 6.0;
+  directionalLightFib.position.z = 6.0;
+  // directionalLightFib.target.x = -6.0;
+  // directionalLightFib.target.x = -6.0;
+  // directionalLightFib.target.x = -6.0;
+scene.add( directionalLightFib );
+
+
+//invisible cube
+// var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+// var material = new THREE.MeshDepthMaterial(  );
+// // material.transparent = true;
+// // material.opacity = 0.0;
+// var cube = new THREE.Mesh( geometry, material );
+// scene.add( cube );
+var geometry = new THREE.CircleGeometry( 5, 32 );
+var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+var cube = new THREE.Mesh( geometry, material );
+scene.add( cube );
+
+
+
+//THIS SHIT WORKS?!?!?!? LOADING MTL AND OBJ
+var onProgress = function ( xhr ) {
+	if ( xhr.lengthComputable ) {
+		var percentComplete = xhr.loaded / xhr.total * 100;
+		console.log( Math.round( percentComplete, 2 ) + '% downloaded' );
+	}
+};
+var onError = function () { };
+
+// fibSpiral1
+var manager = new THREE.LoadingManager();
+new MTLLoader( manager )
+	.setPath( 'assets/models/fibSpiral/' )
+	.load( 'fibSpiral1.mtl', function ( materials ) {
+		materials.preload();
+		new OBJLoader( manager )
+			.setMaterials( materials )
+			.setPath( 'assets/models/fibSpiral/' )
+			.load( 'fibSpiral1.obj', function ( fibSpiral1 ) {
+
+        fibSpiral1.scale.set(0.1,0.1,0.1);
+        fibSpiral1.translateX(-6.0);
+        fibSpiral1.translateZ(6.0);
+        // object.rotateX(Math.PI/2);
+        fibSpiral1.name = 'fibSpiral1';
+
+				scene.add( fibSpiral1 );
+        loaded1 = true;
+			}, onProgress,  onError );
+	} );
+
+  // fibSpiral5
+  var manager = new THREE.LoadingManager();
+  new MTLLoader( manager )
+  	.setPath( 'assets/models/fibSpiral/' )
+  	.load( 'fibSpiral1.mtl', function ( materials ) {
+  		materials.preload();
+  		new OBJLoader( manager )
+  			.setMaterials( materials )
+  			.setPath( 'assets/models/fibSpiral/' )
+  			.load( 'fibSpiral1.obj', function ( fibSpiral15 ) {
+
+          fibSpiral15.scale.set(0.1,0.1,0.1);
+          fibSpiral15.translateX(-6.0);
+          fibSpiral15.translateZ(6.0);
+          // object.rotateX(Math.PI/2);
+          fibSpiral15.name = 'fibSpiral15';
+
+  				scene.add( fibSpiral15 );
+          loaded15 = true;
+  			}, onProgress,  onError );
+  	} );
+
+// fibSpiral2
+var manager2 = new THREE.LoadingManager();
+new MTLLoader( manager2 )
+	.setPath( 'assets/models/fibSpiral/' )
+	.load( 'fibSpiral2.mtl', function ( materials ) {
+		materials.preload();
+		new OBJLoader( manager2 )
+			.setMaterials( materials )
+			.setPath( 'assets/models/fibSpiral/' )
+			.load( 'fibSpiral2.obj', function ( fibSpiral2 ) {
+
+        fibSpiral2.scale.set(0.1,0.1,0.1);
+        fibSpiral2.translateX(-6.0);
+        fibSpiral2.translateZ(6.0);
+        // object.rotateX(Math.PI/2);
+        fibSpiral2.name = 'fibSpiral2';
+
+				scene.add( fibSpiral2 );
+        loaded2 = true;
+			}, onProgress, onError );
+	} );
+// fibSpiral3
+var manager3 = new THREE.LoadingManager();
+new MTLLoader( manager3 )
+  .setPath( 'assets/models/fibSpiral/' )
+  .load( 'fibSpiral3.mtl', function ( materials ) {
+    materials.preload();
+    new OBJLoader( manager3 )
+      .setMaterials( materials )
+      .setPath( 'assets/models/fibSpiral/' )
+      .load( 'fibSpiral3.obj', function ( fibSpiral3 ) {
+
+        fibSpiral3.scale.set(0.1,0.1,0.1);
+        fibSpiral3.translateX(-6.0);
+        fibSpiral3.translateZ(6.0);
+        // object.rotateX(Math.PI/2);
+        fibSpiral3.name = 'fibSpiral3';
+
+        scene.add( fibSpiral3 );
+        loaded3 = true;
+      }, onProgress, onError );
+  } );
+// fibSpiral4
+var manager4 = new THREE.LoadingManager();
+new MTLLoader( manager4 )
+  .setPath( 'assets/models/fibSpiral/' )
+  .load( 'fibSpiral4.mtl', function ( materials ) {
+    materials.preload();
+    new OBJLoader( manager4 )
+      .setMaterials( materials )
+      .setPath( 'assets/models/fibSpiral/' )
+      .load( 'fibSpiral4.obj', function ( fibSpiral4 ) {
+
+        fibSpiral4.scale.set(0.1,0.1,0.1);
+        fibSpiral4.translateX(-6.0);
+        fibSpiral4.translateZ(6.0);
+        // object.rotateX(Math.PI/2);
+        fibSpiral4.name = 'fibSpiral4';
+
+        scene.add( fibSpiral4 );
+        loaded4 = true;
+      }, onProgress, onError );
+  } );
+// fibSpiral6
+var manager6 = new THREE.LoadingManager();
+new MTLLoader( manager6 )
+  .setPath( 'assets/models/fibSpiral/' )
+  .load( 'fibSpiral6.mtl', function ( materials ) {
+    materials.preload();
+    new OBJLoader( manager6 )
+      .setMaterials( materials )
+      .setPath( 'assets/models/fibSpiral/' )
+      .load( 'fibSpiral6.obj', function ( fibSpiral6 ) {
+
+        fibSpiral6.scale.set(0.1,0.1,0.1);
+        fibSpiral6.translateX(-6.0);
+        fibSpiral6.translateZ(6.0);
+        // object.rotateX(Math.PI/2);
+        fibSpiral6.name = 'fibSpiral6';
+
+        scene.add( fibSpiral6 );
+        loaded6 = true;
+      }, onProgress, onError );
+  } );
+  // fibSpiral6
+  var manager7 = new THREE.LoadingManager();
+  new MTLLoader( manager7 )
+    .setPath( 'assets/models/fibSpiral/' )
+    .load( 'fibSpiral7.mtl', function ( materials ) {
+      materials.preload();
+      new OBJLoader( manager7 )
+        .setMaterials( materials )
+        .setPath( 'assets/models/fibSpiral/' )
+        .load( 'fibSpiral7.obj', function ( fibSpiral7 ) {
+
+          fibSpiral7.scale.set(0.1,0.1,0.1);
+          fibSpiral7.translateX(-6.0);
+          fibSpiral7.translateZ(6.0);
+          // object.rotateX(Math.PI/2);
+          fibSpiral7.name = 'fibSpiral7';
+
+          scene.add( fibSpiral7 );
+          loaded7 = true;
+        }, onProgress, onError );
+    } );
+
+    //interaction stuff redirect
+        cube.on('click', function(ev) {
+          redirect1(scene.getObjectByName('cube'));
+          console.log("redirectfibLab1");
+        });
+
+    //interaction stuff hover/glow
+        cube.on('mouseover', function(ev) {
+          shiftUp1 = true;
+          shiftUp2 = true;
+          shiftUp3 = true;
+          shiftUp4 = true;
+          shiftUp6 = true;
+          shiftUp7 = true;
+          console.log("shifting up of fibonacci lbyrinth");
+        });
+        cube.on('mouseout', function(ev) {
+          shiftUp1 = false;
+          shiftUp2 = false;
+          shiftUp3 = false;
+          shiftUp4 = false;
+          shiftUp6 = false;
+          shiftUp7 = false;
+          console.log("shifting down of fibonacci lbyrinth");
+        });
+
+
+
+
+    function render() {
+      renderer.render(scene, camera);
+
+      const fibSpiral15_obj = scene.getObjectByName('fibSpiral15');
+      const fibSpiral2_obj = scene.getObjectByName('fibSpiral2');
+      const fibSpiral3_obj = scene.getObjectByName('fibSpiral3');
+      const fibSpiral4_obj = scene.getObjectByName('fibSpiral4');
+      const fibSpiral6_obj = scene.getObjectByName('fibSpiral6');
+      const fibSpiral7_obj = scene.getObjectByName('fibSpiral7');
+      const directionalLightFib_obj = scene.getObjectByName('fibSpiral7');
+
+      if (loaded15 == true && loaded2 == true && loaded3 == true && loaded4 == true && loaded6 == true && loaded7 == true) {
+        everythingLoaded = true;
+      }
+
+      if (everythingLoaded == true) {
+        fibSpiral15_obj.rotation.y += 0.007;
+        fibSpiral2_obj.rotation.y += 0.007;
+        fibSpiral3_obj.rotation.y += 0.007;
+        fibSpiral4_obj.rotation.y += 0.007;
+        fibSpiral6_obj.rotation.y += 0.007;
+        fibSpiral7_obj.rotation.y += 0.007;
+      }
+
+      if (everythingLoaded == true && shiftUp2 == true && fibSpiral2_obj.position.y < 7.0){
+        fibSpiral2_obj.position.y += 0.15;
+      }
+      // if (everythingLoaded == true && shiftUp15 == true && fibSpiral15_obj.position.y < 6.0){
+      //   fibSpiral15_obj.position.y += 0.15;
+      // }
+      if (everythingLoaded == true && shiftUp3 == true && fibSpiral3_obj.position.y > -7.0){
+        fibSpiral3_obj.position.y -= 0.15;
+      }
+      if (everythingLoaded == true && shiftUp6 == true && fibSpiral6_obj.position.y > -7.0){
+        fibSpiral6_obj.position.y -= 0.15;
+      }
+      if (everythingLoaded == true && shiftUp7 == true && fibSpiral7_obj.position.y > -7.0){
+        fibSpiral7_obj.position.y -= 0.15;
+      }
+      if (everythingLoaded == true && shiftUp4 == true && fibSpiral4_obj.position.y > -7.0){
+        fibSpiral4_obj.position.y -= 0.15;
+      }
+
+      if (everythingLoaded == true && shiftUp2 == false && fibSpiral2_obj.position.y > 0.01){
+        fibSpiral2_obj.position.y -= 0.15;
+      }
+      // if (everythingLoaded == true && shiftUp15 == true && fibSpiral15_obj.position.y < 6.0){
+      //   fibSpiral15_obj.position.y += 0.15;
+      // }
+      if (everythingLoaded == true && shiftUp3 == false && fibSpiral3_obj.position.y < -0.01){
+        fibSpiral3_obj.position.y += 0.15;
+      }
+      if (everythingLoaded == true && shiftUp6 == false && fibSpiral6_obj.position.y < -0.01){
+        fibSpiral6_obj.position.y += 0.15;
+      }
+      if (everythingLoaded == true && shiftUp7 == false && fibSpiral7_obj.position.y < -0.01){
+        fibSpiral7_obj.position.y += 0.15;
+      }
+      if (everythingLoaded == true && shiftUp4 == false && fibSpiral4_obj.position.y < -0.01){
+        fibSpiral4_obj.position.y += 0.15;
+      }
+      if (shiftUp1 == true & directionalLightFib.intensity < 1){
+        directionalLightFib.intensity += 0.01;
+      }
+      if (shiftUp1 == false & directionalLightFib.intensity > 0.01){
+        directionalLightFib.intensity -= 0.02;
+      }
+
+      requestAnimationFrame(render);
+    }
+    render();
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+//Interaction functions (redirect)
+    function redirect1(dom) {
+      location.replace("fibonacciLabyrinth.html")
+      console.log("redirectfibLab2")
+    }
+    function redirect2(dom) {
+
+    }
+    function redirect3(dom) {
+
+    }
+      </script>
+
+</body>
+
+</html>

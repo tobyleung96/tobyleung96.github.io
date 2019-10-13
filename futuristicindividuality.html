@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -6,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" type="text/css" href="styles/all.css" media="all" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gill+Sans">
+
 
   <title>Toby Leung - Futuristic Individuality</title>
 </head>
@@ -13,17 +14,33 @@
 <body>
 
   <div id="navbar">
-    <a href="index.html" style="padding-bottom: 11px;">
+    <a href="index.html">
         <img src="/assets/textures/gradientCircle.png" alt="Logo">
     </a>
-    <a href="futuristicIndividuality.html">Futuristic Individuality</a>
-    <a href="methodical.html">Methodical</a>
-    <a href="empathy.html">Empathy</a>
-    <a href="contact.html" id="contactMenu">Contact</a>
+    <a href="futuristicIndividuality.html">FUTURISTIC INDIVIDUALITY</a>
+    <a href="methodical.html">METHODICAL</a>
+    <a href="empathy.html">EMPATHY</a>
+    <a href="contact.html" id="contactMenu">CONTACT</a>
+  </div>
+
+  <div id="futuristicIndividualityTitle">
+    <div id="FIcontainer">
+      <h1>Futuristic Individuality</h1>
+      <p>In my perspective, design should be exciting and celebrated. Each project
+      should have an unique identity and characteristics that makes for a memorable
+      interaction with the user. In order to rid myself of banalness from repeating
+      history, I aim to create beautiful pieces that still have places in the future.
+      When designing, one must consider the final outcome’s lifespan. Through
+      my Information Science minor, I’ve been given a unique technological perspective
+      that allows me to create in the 21st century. The influence of the digital age
+      is sweeping over design like a storm, and I aim to keep up with it by building
+      with the future in mind.
+      </p>
+    </div>
   </div>
 
   <canvas id="webgl"></canvas>
-    <script src="lib/navigate.js"></script>
+    <!-- <script src="lib/navigate.js"></script> -->
     <script src="/lib/Tween.min.js"></script>
     <script src="/lib/perlin.js"></script>
     <script src="/lib/dat.gui.min.js"></script>
@@ -32,6 +49,7 @@
     <script src="../js/three.min.js"></script>
     <script src="../js/three.interaction.js"></script>
     <script src="/lib/MTLLoader.js"></script>
+      <canvas id="webgl2"></canvas>
     <script type="module">
 
     import { DDSLoader } from './lib/DDSLoader.js';
@@ -39,27 +57,19 @@
     import { MTLLoader } from './lib/MTLLoader.js';
 
     var loaded1;
-    var loaded15;
     var loaded2;
     var loaded3;
-    var loaded4;
-    var loaded6;
-    var loaded7;
     var everythingLoaded;
     var shiftUp1;
-    var shiftUp15;
     var shiftUp2;
     var shiftUp3;
-    var shiftUp4;
-    var shiftUp6;
-    var shiftUp7;
 
 
     window.addEventListener('resize', onWindowResize, false);
 
-// ortho cam
+// // // ortho cam
     var WIDTH = window.innerWidth;
-    var HEIGHT = window.innerHeight;
+    var HEIGHT = window.innerHeight-400;
     var camera = new THREE.OrthographicCamera(
     	-WIDTH/50,
     	WIDTH/50,
@@ -74,19 +84,13 @@
     camera.position.y = 100;
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-    // var WIDTH = window.innerWidth;
-    // var HEIGHT = window.innerHeight;
-    // var camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 1, 100);
-    // camera.position.z = 40;
-    // camera.position.x = 0;
-    // camera.position.y = 0;
-    // camera.lookAt(new THREE.Vector3(0, 0, 0));
 
+//WEBGLrenderer
     var renderer = new THREE.WebGLRenderer({
       canvas: document.querySelector('#webgl'),
       antialias: true,
     });
-    renderer.setClearColor('rgb(20, 20, 20)');
+    renderer.setClearColor('rgb(20,20,20)');
     renderer.setSize(WIDTH, HEIGHT);
     var scene = new THREE.Scene();
 
@@ -96,36 +100,68 @@
 // my shit
 
 //PRACTICE LIGHTS IN CASE MATERIAL
-var ambientLight = new THREE.AmbientLight( 0xffffff, 0.5 );
+var ambientLight = new THREE.AmbientLight( 0xffffff, 0.4 );
 scene.add( ambientLight );
 // var ambientLight = new THREE.AmbientLight( 0xffffff, 0.8 );
 // scene.add( ambientLight );
 
-var pointLight = new THREE.PointLight( 0xffffff, 0.2 );
+var pointLight = new THREE.PointLight( 0xffffff, 0.1 );
 camera.add( pointLight );
 scene.add( camera );
 
-var directionalLightFib = new THREE.DirectionalLight( 0xffff00, 0 );
+var directionalLightFib = new THREE.DirectionalLight( 6811631, 0 );
   directionalLightFib.position.x = -6.0;
   directionalLightFib.position.y = 6.0;
   directionalLightFib.position.z = 6.0;
-  // directionalLightFib.target.x = -6.0;
-  // directionalLightFib.target.x = -6.0;
-  // directionalLightFib.target.x = -6.0;
 scene.add( directionalLightFib );
 
 
-//invisible cube
-// var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-// var material = new THREE.MeshDepthMaterial(  );
-// // material.transparent = true;
-// // material.opacity = 0.0;
-// var cube = new THREE.Mesh( geometry, material );
-// scene.add( cube );
-var geometry = new THREE.CircleGeometry( 5, 32 );
+var targetObject = new THREE.Object3D();
+  targetObject.position.x = 7.0;
+  targetObject.position.y = -1.5;
+  targetObject.position.z = -7.0;
+scene.add(targetObject);
+
+var spotLight = new THREE.SpotLight( 0xffffff , 0.8);
+// spotLight.position.set( 100, 1000, 100 );
+
+spotLight.castShadow = true;
+spotLight.shadow.mapSize.width = 1024;
+spotLight.shadow.mapSize.height = 1024;
+spotLight.shadow.camera.near = 500;
+spotLight.shadow.camera.far = 4000;
+spotLight.shadow.camera.fov = 30;
+  spotLight.position.x = 3.0;
+  spotLight.position.y = -1.0;
+  spotLight.position.z = 3.0;
+  spotLight.target = targetObject
+scene.add( spotLight );
+
+
+var geometry = new THREE.BoxGeometry( 7,8,7 );
 var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+  material.transparent = true;
+  material.opacity = 0.0;
 var cube = new THREE.Mesh( geometry, material );
+  cube.position.x = -4.5;
+  cube.position.y = 1.8;
+  cube.position.z = 8.0;
 scene.add( cube );
+
+
+
+
+// var geometry = new THREE.BoxGeometry( 7,15,1 );
+// var material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+//   // material.transparent = true;
+//   // material.opacity = 0.0;
+// var cubePractice = new THREE.Mesh( geometry, material );
+//   // cube.position.x = -4.5;
+//   // cube.position.y = 1.8;
+//   // cubePractice.position.z = 8.0;
+//   cubePractice.rotateY(Math.PI/4);
+// scene.add( cubePractice );
+
 
 
 
@@ -144,13 +180,16 @@ new MTLLoader( manager )
 	.setPath( 'assets/models/fibSpiral/' )
 	.load( 'fibSpiral1.mtl', function ( materials ) {
 		materials.preload();
+    // materials.transparent = true;
+    // materials.opacity = 0.2;
 		new OBJLoader( manager )
 			.setMaterials( materials )
 			.setPath( 'assets/models/fibSpiral/' )
 			.load( 'fibSpiral1.obj', function ( fibSpiral1 ) {
 
-        fibSpiral1.scale.set(0.1,0.1,0.1);
-        fibSpiral1.translateX(-6.0);
+        fibSpiral1.scale.set(0.15,0.15,0.15);
+        fibSpiral1.translateX(-7.0);
+        fibSpiral1.translateY(-3.0);
         fibSpiral1.translateZ(6.0);
         // object.rotateX(Math.PI/2);
         fibSpiral1.name = 'fibSpiral1';
@@ -159,28 +198,6 @@ new MTLLoader( manager )
         loaded1 = true;
 			}, onProgress,  onError );
 	} );
-
-  // fibSpiral5
-  var manager = new THREE.LoadingManager();
-  new MTLLoader( manager )
-  	.setPath( 'assets/models/fibSpiral/' )
-  	.load( 'fibSpiral1.mtl', function ( materials ) {
-  		materials.preload();
-  		new OBJLoader( manager )
-  			.setMaterials( materials )
-  			.setPath( 'assets/models/fibSpiral/' )
-  			.load( 'fibSpiral1.obj', function ( fibSpiral15 ) {
-
-          fibSpiral15.scale.set(0.1,0.1,0.1);
-          fibSpiral15.translateX(-6.0);
-          fibSpiral15.translateZ(6.0);
-          // object.rotateX(Math.PI/2);
-          fibSpiral15.name = 'fibSpiral15';
-
-  				scene.add( fibSpiral15 );
-          loaded15 = true;
-  			}, onProgress,  onError );
-  	} );
 
 // fibSpiral2
 var manager2 = new THREE.LoadingManager();
@@ -193,8 +210,9 @@ new MTLLoader( manager2 )
 			.setPath( 'assets/models/fibSpiral/' )
 			.load( 'fibSpiral2.obj', function ( fibSpiral2 ) {
 
-        fibSpiral2.scale.set(0.1,0.1,0.1);
-        fibSpiral2.translateX(-6.0);
+        fibSpiral2.scale.set(0.15,0.15,0.15);
+        fibSpiral2.translateX(-7.0);
+        fibSpiral2.translateY(-3.0);
         fibSpiral2.translateZ(6.0);
         // object.rotateX(Math.PI/2);
         fibSpiral2.name = 'fibSpiral2';
@@ -203,19 +221,21 @@ new MTLLoader( manager2 )
         loaded2 = true;
 			}, onProgress, onError );
 	} );
-// fibSpiral3
+
+// fibSpiralbottom
 var manager3 = new THREE.LoadingManager();
 new MTLLoader( manager3 )
   .setPath( 'assets/models/fibSpiral/' )
-  .load( 'fibSpiral3.mtl', function ( materials ) {
+  .load( '2FibSpiralBottom.mtl', function ( materials ) {
     materials.preload();
     new OBJLoader( manager3 )
       .setMaterials( materials )
       .setPath( 'assets/models/fibSpiral/' )
-      .load( 'fibSpiral3.obj', function ( fibSpiral3 ) {
+      .load( '2FibSpiralBottom.obj', function ( fibSpiral3 ) {
 
-        fibSpiral3.scale.set(0.1,0.1,0.1);
-        fibSpiral3.translateX(-6.0);
+        fibSpiral3.scale.set(0.15,0.15,0.15);
+        fibSpiral3.translateX(-7.0);
+        fibSpiral3.translateY(-3.0);
         fibSpiral3.translateZ(6.0);
         // object.rotateX(Math.PI/2);
         fibSpiral3.name = 'fibSpiral3';
@@ -224,67 +244,29 @@ new MTLLoader( manager3 )
         loaded3 = true;
       }, onProgress, onError );
   } );
-// fibSpiral4
-var manager4 = new THREE.LoadingManager();
-new MTLLoader( manager4 )
-  .setPath( 'assets/models/fibSpiral/' )
-  .load( 'fibSpiral4.mtl', function ( materials ) {
-    materials.preload();
-    new OBJLoader( manager4 )
-      .setMaterials( materials )
-      .setPath( 'assets/models/fibSpiral/' )
-      .load( 'fibSpiral4.obj', function ( fibSpiral4 ) {
 
-        fibSpiral4.scale.set(0.1,0.1,0.1);
-        fibSpiral4.translateX(-6.0);
-        fibSpiral4.translateZ(6.0);
-        // object.rotateX(Math.PI/2);
-        fibSpiral4.name = 'fibSpiral4';
-
-        scene.add( fibSpiral4 );
-        loaded4 = true;
-      }, onProgress, onError );
-  } );
-// fibSpiral6
-var manager6 = new THREE.LoadingManager();
-new MTLLoader( manager6 )
-  .setPath( 'assets/models/fibSpiral/' )
-  .load( 'fibSpiral6.mtl', function ( materials ) {
-    materials.preload();
-    new OBJLoader( manager6 )
-      .setMaterials( materials )
-      .setPath( 'assets/models/fibSpiral/' )
-      .load( 'fibSpiral6.obj', function ( fibSpiral6 ) {
-
-        fibSpiral6.scale.set(0.1,0.1,0.1);
-        fibSpiral6.translateX(-6.0);
-        fibSpiral6.translateZ(6.0);
-        // object.rotateX(Math.PI/2);
-        fibSpiral6.name = 'fibSpiral6';
-
-        scene.add( fibSpiral6 );
-        loaded6 = true;
-      }, onProgress, onError );
-  } );
-  // fibSpiral6
-  var manager7 = new THREE.LoadingManager();
-  new MTLLoader( manager7 )
-    .setPath( 'assets/models/fibSpiral/' )
-    .load( 'fibSpiral7.mtl', function ( materials ) {
+  // fibSpiralText
+  var manager3 = new THREE.LoadingManager();
+  new MTLLoader( manager3 )
+    .setPath( 'assets/models/textModels/' )
+    .load( 'fibLabText.mtl', function ( materials ) {
       materials.preload();
-      new OBJLoader( manager7 )
+      new OBJLoader( manager3 )
         .setMaterials( materials )
-        .setPath( 'assets/models/fibSpiral/' )
-        .load( 'fibSpiral7.obj', function ( fibSpiral7 ) {
+        .setPath( 'assets/models/textModels/' )
+        .load( 'fibLabText.obj', function ( fibLabText ) {
 
-          fibSpiral7.scale.set(0.1,0.1,0.1);
-          fibSpiral7.translateX(-6.0);
-          fibSpiral7.translateZ(6.0);
-          // object.rotateX(Math.PI/2);
-          fibSpiral7.name = 'fibSpiral7';
+          fibLabText.scale.set(0.5,0.5,0.5);
+          fibLabText.translateX(7.0);
+          fibLabText.translateY(-1.5);
+          fibLabText.translateZ(-7.0);
+          fibLabText.rotateX(Math.PI/2);
+          // object.rotateY(Math.PI/2);
+          // object.rotateZ(0.1);
+          fibLabText.name = 'fibLabText';
 
-          scene.add( fibSpiral7 );
-          loaded7 = true;
+          scene.add( fibLabText );
+          // loaded3 = true;
         }, onProgress, onError );
     } );
 
@@ -299,86 +281,47 @@ new MTLLoader( manager6 )
           shiftUp1 = true;
           shiftUp2 = true;
           shiftUp3 = true;
-          shiftUp4 = true;
-          shiftUp6 = true;
-          shiftUp7 = true;
           console.log("shifting up of fibonacci lbyrinth");
         });
         cube.on('mouseout', function(ev) {
           shiftUp1 = false;
           shiftUp2 = false;
           shiftUp3 = false;
-          shiftUp4 = false;
-          shiftUp6 = false;
-          shiftUp7 = false;
           console.log("shifting down of fibonacci lbyrinth");
         });
 
-
-
-
     function render() {
       renderer.render(scene, camera);
-
-      const fibSpiral15_obj = scene.getObjectByName('fibSpiral15');
+      const fibSpiral1_obj = scene.getObjectByName('fibSpiral1');
       const fibSpiral2_obj = scene.getObjectByName('fibSpiral2');
       const fibSpiral3_obj = scene.getObjectByName('fibSpiral3');
-      const fibSpiral4_obj = scene.getObjectByName('fibSpiral4');
-      const fibSpiral6_obj = scene.getObjectByName('fibSpiral6');
-      const fibSpiral7_obj = scene.getObjectByName('fibSpiral7');
+
       const directionalLightFib_obj = scene.getObjectByName('fibSpiral7');
 
-      if (loaded15 == true && loaded2 == true && loaded3 == true && loaded4 == true && loaded6 == true && loaded7 == true) {
+      if (loaded1 == true && loaded2 == true && loaded3 == true) {
         everythingLoaded = true;
       }
 
       if (everythingLoaded == true) {
-        fibSpiral15_obj.rotation.y += 0.007;
+        fibSpiral1_obj.rotation.y += 0.007;
         fibSpiral2_obj.rotation.y += 0.007;
         fibSpiral3_obj.rotation.y += 0.007;
-        fibSpiral4_obj.rotation.y += 0.007;
-        fibSpiral6_obj.rotation.y += 0.007;
-        fibSpiral7_obj.rotation.y += 0.007;
       }
 
-      if (everythingLoaded == true && shiftUp2 == true && fibSpiral2_obj.position.y < 7.0){
+      if (everythingLoaded == true && shiftUp1 == true && fibSpiral1_obj.position.y < 0.0){
+        fibSpiral1_obj.position.y += 0.15;
+      }
+      if (everythingLoaded == true && shiftUp1 == false && fibSpiral1_obj.position.y > -3.01){
+        fibSpiral1_obj.position.y -= 0.15;
+      }
+      if (everythingLoaded == true && shiftUp2 == true && fibSpiral2_obj.position.y < 3.0){
         fibSpiral2_obj.position.y += 0.15;
       }
-      // if (everythingLoaded == true && shiftUp15 == true && fibSpiral15_obj.position.y < 6.0){
-      //   fibSpiral15_obj.position.y += 0.15;
-      // }
-      if (everythingLoaded == true && shiftUp3 == true && fibSpiral3_obj.position.y > -7.0){
-        fibSpiral3_obj.position.y -= 0.15;
-      }
-      if (everythingLoaded == true && shiftUp6 == true && fibSpiral6_obj.position.y > -7.0){
-        fibSpiral6_obj.position.y -= 0.15;
-      }
-      if (everythingLoaded == true && shiftUp7 == true && fibSpiral7_obj.position.y > -7.0){
-        fibSpiral7_obj.position.y -= 0.15;
-      }
-      if (everythingLoaded == true && shiftUp4 == true && fibSpiral4_obj.position.y > -7.0){
-        fibSpiral4_obj.position.y -= 0.15;
-      }
-
-      if (everythingLoaded == true && shiftUp2 == false && fibSpiral2_obj.position.y > 0.01){
+      if (everythingLoaded == true && shiftUp2 == false && fibSpiral2_obj.position.y > -3.01){
         fibSpiral2_obj.position.y -= 0.15;
       }
-      // if (everythingLoaded == true && shiftUp15 == true && fibSpiral15_obj.position.y < 6.0){
-      //   fibSpiral15_obj.position.y += 0.15;
-      // }
-      if (everythingLoaded == true && shiftUp3 == false && fibSpiral3_obj.position.y < -0.01){
-        fibSpiral3_obj.position.y += 0.15;
-      }
-      if (everythingLoaded == true && shiftUp6 == false && fibSpiral6_obj.position.y < -0.01){
-        fibSpiral6_obj.position.y += 0.15;
-      }
-      if (everythingLoaded == true && shiftUp7 == false && fibSpiral7_obj.position.y < -0.01){
-        fibSpiral7_obj.position.y += 0.15;
-      }
-      if (everythingLoaded == true && shiftUp4 == false && fibSpiral4_obj.position.y < -0.01){
-        fibSpiral4_obj.position.y += 0.15;
-      }
-      if (shiftUp1 == true & directionalLightFib.intensity < 1){
+
+      if (shiftUp1 == true & directionalLightFib.intensity < 0.8){
         directionalLightFib.intensity += 0.01;
       }
       if (shiftUp1 == false & directionalLightFib.intensity > 0.01){
@@ -400,14 +343,404 @@ new MTLLoader( manager6 )
       location.replace("fibonacciLabyrinth.html")
       console.log("redirectfibLab2")
     }
-    function redirect2(dom) {
-
-    }
-    function redirect3(dom) {
-
-    }
       </script>
 
+
+
+
+
+
+
+
+
+<!-- FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER
+FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
+
+
+
+
+
+
+
+
+  <script type="module">
+
+      import { DDSLoader } from './lib/DDSLoader.js';
+      import { OBJLoader } from './lib/OBJLoader.js';
+      import { MTLLoader } from './lib/MTLLoader.js';
+
+      var loaded1;
+      var loaded2;
+      var loaded3;
+      var loaded4;
+      var everythingLoaded;
+      var shiftUp1;
+      var shiftUp2;
+      var shiftUp3;
+      var shiftUp4;
+
+
+      window.addEventListener('resize', onWindowResize, false);
+
+  // // ortho cam
+      var WIDTH = window.innerWidth;
+      var HEIGHT = window.innerHeight-400;
+      var camera = new THREE.OrthographicCamera(
+      	-WIDTH/50,
+      	WIDTH/50,
+      	HEIGHT/50,
+      	-HEIGHT/50,
+        // -10,10,10,-10,
+      	0.1,
+      	1000
+      );
+      camera.position.z = 100;
+      camera.position.x = 100;
+      camera.position.y = 100;
+      camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+      // var WIDTH = window.innerWidth;
+      // var HEIGHT = window.innerHeight;
+      // var camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 1, 100);
+      // camera.position.z = 30;
+      // camera.position.x = 0;
+      // camera.position.y = 10;
+      // camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+  //WEBGLrenderer
+      var renderer = new THREE.WebGLRenderer({
+        canvas: document.querySelector('#webgl2'),
+        antialias: true,
+      });
+      renderer.setClearColor('rgb(35, 35, 35)');
+      renderer.setSize(WIDTH, HEIGHT);
+      var scene = new THREE.Scene();
+
+
+      var interaction = new THREE.Interaction(renderer, scene, camera);
+
+  // my shit
+
+  //PRACTICE LIGHTS IN CASE MATERIAL
+  var ambientLight = new THREE.AmbientLight( 0xffffff, 0.4 );
+  scene.add( ambientLight );
+  // var ambientLight = new THREE.AmbientLight( 0xffffff, 0.8 );
+  // scene.add( ambientLight );
+
+  var pointLight = new THREE.PointLight( 0xffffff, 0.1 );
+  camera.add( pointLight );
+  scene.add( camera );
+
+  var directionalLightFib = new THREE.DirectionalLight( 6811631, 0 );
+    directionalLightFib.position.x = -6.0;
+    directionalLightFib.position.y = 6.0;
+    directionalLightFib.position.z = 6.0;
+  scene.add( directionalLightFib );
+
+
+  var targetObject = new THREE.Object3D();
+    targetObject.position.x = 7.0;
+    targetObject.position.y = -1.5;
+    targetObject.position.z = -7.0;
+  scene.add(targetObject);
+
+  var spotLight = new THREE.SpotLight( 0xffffff , 0.8);
+  // spotLight.position.set( 100, 1000, 100 );
+
+  spotLight.castShadow = true;
+  spotLight.shadow.mapSize.width = 1024;
+  spotLight.shadow.mapSize.height = 1024;
+  spotLight.shadow.camera.near = 500;
+  spotLight.shadow.camera.far = 4000;
+  spotLight.shadow.camera.fov = 30;
+    spotLight.position.x = 3.0;
+    spotLight.position.y = -1.0;
+    spotLight.position.z = 3.0;
+    spotLight.target = targetObject
+  scene.add( spotLight );
+
+  var geometry = new THREE.BoxGeometry( 9,9,9 );
+  var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+    material.transparent = true;
+    material.opacity = 0.0;
+  var cube = new THREE.Mesh( geometry, material );
+    cube.position.x = -5.0;
+    cube.position.y = 1.5;
+    cube.position.z = 8.0;
+  scene.add( cube );
+
+  // var geometry = new THREE.BoxGeometry( 6, 20, 6 );
+  // var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+  //   material.wireframe = true;
+  // var cube1 = new THREE.Mesh( geometry, material );
+  //   cube1.translateY(-20.0);
+  //   cube1.rotateY(Math.PI/4)
+  // scene.add( cube1 );
+
+
+  //THIS SHIT WORKS?!?!?!? LOADING MTL AND OBJ
+  var onProgress = function ( xhr ) {
+  	if ( xhr.lengthComputable ) {
+  		var percentComplete = xhr.loaded / xhr.total * 100;
+  		console.log( Math.round( percentComplete, 2 ) + '% downloaded' );
+  	}
+  };
+  var onError = function () { };
+
+  // fiftyAmerica1
+  var manager = new THREE.LoadingManager();
+  new MTLLoader( manager )
+  	.setPath( 'assets/models/50ShadesOfAmerica/' )
+  	.load( 'new50ShadesOfAmerica1.mtl', function ( materials ) {
+  		materials.preload();
+      // materials.transparent = true;
+      // materials.opacity = 0.2;
+  		new OBJLoader( manager )
+  			.setMaterials( materials )
+  			.setPath( 'assets/models/50ShadesOfAmerica/' )
+  			.load( 'new50ShadesOfAmerica1.obj', function ( fiftyAmerica1 ) {
+
+          fiftyAmerica1.scale.set(0.08,0.08,0.08);
+          fiftyAmerica1.translateX(-6.0);
+          fiftyAmerica1.translateY(-2.0);
+          fiftyAmerica1.translateZ(6.0);
+          fiftyAmerica1.rotateX(-Math.PI/2);
+          fiftyAmerica1.name = 'fiftyAmerica1';
+
+  				scene.add( fiftyAmerica1 );
+          loaded1 = true;
+  			}, onProgress,  onError );
+  	} );
+
+  // fiftyAmerica2
+  var manager = new THREE.LoadingManager();
+  new MTLLoader( manager )
+  	.setPath( 'assets/models/50ShadesOfAmerica/' )
+  	.load( 'new50ShadesOfAmerica2.mtl', function ( materials ) {
+  		materials.preload();
+      // materials.transparent = true;
+      // materials.opacity = 0.2;
+  		new OBJLoader( manager )
+  			.setMaterials( materials )
+  			.setPath( 'assets/models/50ShadesOfAmerica/' )
+  			.load( 'new50ShadesOfAmerica2.obj', function ( fiftyAmerica2 ) {
+
+          fiftyAmerica2.scale.set(0.08,0.08,0.08);
+          fiftyAmerica2.translateX(-6.0);
+          fiftyAmerica2.translateY(-2.0);
+          fiftyAmerica2.translateZ(6.0);
+          fiftyAmerica2.rotateX(-Math.PI/2);
+          fiftyAmerica2.name = 'fiftyAmerica2';
+
+  				scene.add( fiftyAmerica2 );
+          loaded2 = true;
+  			}, onProgress,  onError );
+  	} );
+
+  // fiftyAmerica3
+  var manager = new THREE.LoadingManager();
+  new MTLLoader( manager )
+  	.setPath( 'assets/models/50ShadesOfAmerica/' )
+  	.load( 'new50ShadesOfAmerica3.mtl', function ( materials ) {
+  		materials.preload();
+      // materials.transparent = true;
+      // materials.opacity = 0.2;
+  		new OBJLoader( manager )
+  			.setMaterials( materials )
+  			.setPath( 'assets/models/50ShadesOfAmerica/' )
+  			.load( 'new50ShadesOfAmerica3.obj', function ( fiftyAmerica3 ) {
+
+          fiftyAmerica3.scale.set(0.08,0.08,0.08);
+          fiftyAmerica3.translateX(-6.0);
+          fiftyAmerica3.translateY(-2.0);
+          fiftyAmerica3.translateZ(6.0);
+          fiftyAmerica3.rotateX(-Math.PI/2);
+          fiftyAmerica3.name = 'fiftyAmerica3';
+
+  				scene.add( fiftyAmerica3 );
+          loaded3 = true;
+  			}, onProgress,  onError );
+  	} );
+
+  // fiftyAmerica4
+  var manager = new THREE.LoadingManager();
+  new MTLLoader( manager )
+  	.setPath( 'assets/models/50ShadesOfAmerica/' )
+  	.load( 'new50ShadesOfAmerica4.mtl', function ( materials ) {
+  		materials.preload();
+      // materials.transparent = true;
+      // materials.opacity = 0.2;
+  		new OBJLoader( manager )
+  			.setMaterials( materials )
+  			.setPath( 'assets/models/50ShadesOfAmerica/' )
+  			.load( 'new50ShadesOfAmerica4.obj', function ( fiftyAmerica4 ) {
+
+          fiftyAmerica4.scale.set(0.08,0.08,0.08);
+          fiftyAmerica4.translateX(-6.0);
+          fiftyAmerica4.translateY(-2.0);
+          fiftyAmerica4.translateZ(6.0);
+          fiftyAmerica4.rotateX(-Math.PI/2);
+          // fiftyAmerica4.rotateY(Math.PI/2);
+          fiftyAmerica4.name = 'fiftyAmerica4';
+
+  				scene.add( fiftyAmerica4 );
+          loaded4 = true;
+  			}, onProgress,  onError );
+  	} );
+
+    // fiftyAmericaText
+    var manager3 = new THREE.LoadingManager();
+    new MTLLoader( manager3 )
+      .setPath( 'assets/models/textModels/' )
+      .load( 'fiftyAmericaText.mtl', function ( materials ) {
+        materials.preload();
+        new OBJLoader( manager3 )
+          .setMaterials( materials )
+          .setPath( 'assets/models/textModels/' )
+          .load( 'fiftyAmericaText.obj', function ( fiftyAmericaText ) {
+
+            fiftyAmericaText.scale.set(0.5,0.5,0.5);
+            fiftyAmericaText.translateX(7.0);
+            fiftyAmericaText.translateY(-1.5);
+            fiftyAmericaText.translateZ(-10.0);
+            fiftyAmericaText.rotateX(Math.PI/2);
+            // object.rotateY(Math.PI/2);
+            // object.rotateZ(0.1);
+            fiftyAmericaText.name = 'fiftyAmericaText';
+
+            scene.add( fiftyAmericaText );
+            // loaded3 = true;
+          }, onProgress, onError );
+      } );
+
+      //interaction stuff redirect
+          cube.on('click', function(ev) {
+            redirect1(scene.getObjectByName('cube'));
+            console.log("redirectfibLab1");
+          });
+
+      //interaction stuff hover/glow
+          cube.on('mouseover', function(ev) {
+            shiftUp1 = true;
+            shiftUp2 = true;
+            shiftUp3 = true;
+            shiftUp4 = true;
+            console.log("shifting up of fiftyAmerica");
+          });
+          cube.on('mouseout', function(ev) {
+            shiftUp1 = false;
+            shiftUp2 = false;
+            shiftUp3 = false;
+            shiftUp4 = false;
+            console.log("shifting down of fiftyAmerica");
+          });
+
+
+
+      function render() {
+        renderer.render(scene, camera);
+
+        const fiftyAmerica1_obj = scene.getObjectByName('fiftyAmerica1');
+        const fiftyAmerica2_obj = scene.getObjectByName('fiftyAmerica2');
+        const fiftyAmerica3_obj = scene.getObjectByName('fiftyAmerica3');
+        const fiftyAmerica4_obj = scene.getObjectByName('fiftyAmerica4');
+
+        const directionalLightFib_obj = scene.getObjectByName('fibSpiral7');
+
+        if (loaded1 == true && loaded2 == true && loaded3 == true && loaded4 == true) {
+          everythingLoaded = true;
+        }
+
+        if (everythingLoaded == true) {
+          fiftyAmerica1_obj.rotation.z += 0.007;
+          fiftyAmerica2_obj.rotation.z += 0.007;
+          fiftyAmerica3_obj.rotation.z += 0.007;
+          fiftyAmerica4_obj.rotation.z += 0.007;
+        }
+        // if (everythingLoaded == true) {
+        //   fiftyAmerica4_obj.rotation.x = (Math.PI/2);;
+        // }
+
+        if (everythingLoaded == true && shiftUp3 == true && fiftyAmerica3_obj.position.y < 4.0){
+          fiftyAmerica3_obj.position.y += 0.15;
+        }
+        if (everythingLoaded == true && shiftUp3 == false && fiftyAmerica3_obj.position.y > -2.0){
+          fiftyAmerica3_obj.position.y -= 0.15;
+        }
+
+        if (everythingLoaded == true && shiftUp1 == true && fiftyAmerica1_obj.position.y < 2.0){
+          fiftyAmerica1_obj.position.y += 0.15;
+        }
+        if (everythingLoaded == true && shiftUp1 == false && fiftyAmerica1_obj.position.y > -2.0){
+          fiftyAmerica1_obj.position.y -= 0.15;
+        }
+
+        if (everythingLoaded == true && shiftUp2 == true && fiftyAmerica2_obj.position.y < 0.0){
+          fiftyAmerica2_obj.position.y += 0.15;
+        }
+        if (everythingLoaded == true && shiftUp2 == false && fiftyAmerica2_obj.position.y > -2.0){
+          fiftyAmerica2_obj.position.y -= 0.15;
+        }
+
+
+
+        // if (everythingLoaded == true && shiftUp3 == true && fiftyAmerica3_obj.position.y > -7.0){
+        //   fiftyAmerica3_obj.position.y -= 0.15;
+        // }
+        //
+        // if (everythingLoaded == true && shiftUp4 == true && fibSpiral45_obj.position.y > -7.0){
+        //   fibSpiral45_obj.position.y -= 0.15;
+        // }
+        //
+        // if (everythingLoaded == true && shiftUp2 == false && fiftyAmerica2_obj.position.y > 0.01){
+        //   fiftyAmerica2_obj.position.y -= 0.15;
+        // }
+        //
+        // if (everythingLoaded == true && shiftUp3 == false && fiftyAmerica3_obj.position.y < -0.01){
+        //   fiftyAmerica3_obj.position.y += 0.15;
+        // }
+        //
+        // if (everythingLoaded == true && shiftUp4 == false && fibSpiral45_obj.position.y < -0.01){
+        //   fibSpiral45_obj.position.y += 0.15;
+        // }
+
+
+        if (shiftUp1 == true & directionalLightFib.intensity < 0.8){
+          directionalLightFib.intensity += 0.01;
+        }
+        if (shiftUp1 == false & directionalLightFib.intensity > 0.01){
+          directionalLightFib.intensity -= 0.02;
+        }
+
+        requestAnimationFrame(render);
+      }
+      render();
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+  //Interaction functions (redirect)
+      function redirect1(dom) {
+        location.replace("50ShadesOfAmerica.html")
+        console.log("redirectfiftyAmerica2")
+      }
+    </script>
 </body>
 
 </html>

@@ -59,7 +59,7 @@
     var loaded1;
     var loaded2;
     var loaded3;
-    var everythingLoaded;
+    var everythingLoaded = false;
     var shiftUp1;
     var shiftUp2;
     var shiftUp3;
@@ -96,6 +96,39 @@
 
 
     var interaction = new THREE.Interaction(renderer, scene, camera);
+
+    ////////////
+    //loading Screen
+    var loadingManager = null;
+    var RESOURCES_LOADED = false;
+    // An object to hold all the things needed for our loading screen
+    var loadingScreen = {
+    	scene2: new THREE.Scene(),
+    	camera2: new THREE.PerspectiveCamera(90, 1280/720, 0.1, 100),
+    	box: new THREE.Mesh(
+    		new THREE.BoxGeometry(0.5,0.5,0.5),
+    		new THREE.MeshBasicMaterial({ color:0x4444ff })
+    	)
+    };
+    // Set up the loading screen's scene.
+    // It can be treated just like our main scene.
+    loadingScreen.box.position.set(0,0,5);
+    loadingScreen.camera2.lookAt(loadingScreen.box.position);
+    loadingScreen.scene2.add(loadingScreen.box);
+    // Create a loading manager to set RESOURCES_LOADED when appropriate.
+    // Pass loadingManager to all resource loaders.
+    loadingManager = new THREE.LoadingManager();
+
+    loadingManager.onProgress = function(item, loaded, total){
+      console.log(item, loaded, total);
+    };
+
+    loadingManager.onLoad = function(){
+      console.log("loaded all resources");
+      RESOURCES_LOADED = true;
+    };
+
+
 
 // my shit
 
@@ -173,6 +206,11 @@ var onProgress = function ( xhr ) {
 	}
 };
 var onError = function () { };
+
+// var onLoad = function(){
+//   console.log("loaded all resources");
+//   RESOURCES_LOADED = true;
+// };
 
 // fibSpiral1
 var manager = new THREE.LoadingManager();
@@ -291,16 +329,31 @@ new MTLLoader( manager3 )
         });
 
     function render() {
+      if (loaded1 == true && loaded2 == true && loaded3 == true) {
+        everythingLoaded = true;
+      }
+
+      if (everythingLoaded == false) {
+        requestAnimationFrame(render);
+
+        loadingScreen.box.position.x -= 0.05;
+        if( loadingScreen.box.position.x < -10 ) loadingScreen.box.position.x = 10;
+        loadingScreen.box.position.y = Math.sin(loadingScreen.box.position.x);
+
+        renderer.render(loadingScreen.scene2, loadingScreen.camera2);
+        return; // Stop the function here.
+      }
+
       renderer.render(scene, camera);
       const fibSpiral1_obj = scene.getObjectByName('fibSpiral1');
       const fibSpiral2_obj = scene.getObjectByName('fibSpiral2');
       const fibSpiral3_obj = scene.getObjectByName('fibSpiral3');
 
       const directionalLightFib_obj = scene.getObjectByName('fibSpiral7');
-
-      if (loaded1 == true && loaded2 == true && loaded3 == true) {
-        everythingLoaded = true;
-      }
+      //
+      // if (loaded1 == true && loaded2 == true && loaded3 == true) {
+      //   everythingLoaded = true;
+      // }
 
       if (everythingLoaded == true) {
         fibSpiral1_obj.rotation.y += 0.007;
@@ -386,7 +439,7 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
       var loaded2;
       var loaded3;
       var loaded4;
-      var everythingLoaded;
+      var everythingLoaded = false;
       var shiftUp1;
       var shiftUp2;
       var shiftUp3;
@@ -431,6 +484,43 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
 
 
       var interaction = new THREE.Interaction(renderer, scene, camera);
+
+
+
+//loading Screen
+var loadingManager = null;
+var RESOURCES_LOADED = false;
+// An object to hold all the things needed for our loading screen
+var loadingScreen = {
+	scene2: new THREE.Scene(),
+	camera2: new THREE.PerspectiveCamera(90, 1280/720, 0.1, 100),
+	box: new THREE.Mesh(
+		new THREE.BoxGeometry(0.5,0.5,0.5),
+		new THREE.MeshBasicMaterial({ color:0x4444ff })
+	)
+};
+
+// Set up the loading screen's scene.
+// It can be treated just like our main scene.
+loadingScreen.box.position.set(0,0,5);
+loadingScreen.camera2.lookAt(loadingScreen.box.position);
+loadingScreen.scene2.add(loadingScreen.box);
+
+// Create a loading manager to set RESOURCES_LOADED when appropriate.
+// Pass loadingManager to all resource loaders.
+loadingManager = new THREE.LoadingManager();
+
+loadingManager.onProgress = function(item, loaded, total){
+  console.log(item, loaded, total);
+};
+
+loadingManager.onLoad = function(){
+  console.log("loaded all resources");
+  RESOURCES_LOADED = true;
+};
+
+
+
 
   // my shit
 
@@ -651,6 +741,21 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
 
 
       function render() {
+        if (loaded1 == true && loaded2 == true && loaded3 == true && loaded4 == true) {
+          everythingLoaded = true;
+        }
+
+        if (everythingLoaded == false) {
+          requestAnimationFrame(render);
+
+          loadingScreen.box.position.x -= 0.05;
+          if( loadingScreen.box.position.x < -10 ) loadingScreen.box.position.x = 10;
+          loadingScreen.box.position.y = Math.sin(loadingScreen.box.position.x);
+
+          renderer.render(loadingScreen.scene2, loadingScreen.camera2);
+          return; // Stop the function here.
+        }
+
         renderer.render(scene, camera);
 
         const fiftyAmerica1_obj = scene.getObjectByName('fiftyAmerica1');
@@ -660,9 +765,9 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
 
         const directionalLightFib_obj = scene.getObjectByName('fibSpiral7');
 
-        if (loaded1 == true && loaded2 == true && loaded3 == true && loaded4 == true) {
-          everythingLoaded = true;
-        }
+
+
+
 
         if (everythingLoaded == true) {
           fiftyAmerica1_obj.rotation.z += 0.007;
@@ -694,8 +799,6 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
         if (everythingLoaded == true && shiftUp2 == false && fiftyAmerica2_obj.position.y > -2.0){
           fiftyAmerica2_obj.position.y -= 0.15;
         }
-
-
 
         // if (everythingLoaded == true && shiftUp3 == true && fiftyAmerica3_obj.position.y > -7.0){
         //   fiftyAmerica3_obj.position.y -= 0.15;

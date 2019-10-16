@@ -105,7 +105,7 @@ canvas {
   padding: 5px;
   text-transform: uppercase;
   letter-spacing: 3px;
-  font-weight: SemiBold;
+  font-weight: 500;
 }
 
 #intro {
@@ -745,4 +745,16 @@ canvas {
 #contact1 a:active {
   text-decoration: underline;
   color: white;
+}
+
+#webgl {
+  cursor: pointer !important;
+}
+
+#webgl2 {
+  cursor: pointer !important;
+}
+
+canvas {
+  cursor: pointer !important;
 }

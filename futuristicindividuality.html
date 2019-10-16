@@ -37,7 +37,7 @@
       </p>
   </div>
 
-  <canvas id="webgl"></canvas>
+  <canvas id="webgl" style="cursor: pointer;"></canvas>
     <!-- <script src="lib/navigate.js"></script> -->
     <script src="/lib/Tween.min.js"></script>
     <script src="/lib/perlin.js"></script>
@@ -331,16 +331,16 @@ new MTLLoader( manager3 )
         everythingLoaded = true;
       }
 
-      if (everythingLoaded == false) {
-        requestAnimationFrame(render);
-
-        loadingScreen.box.position.x -= 0.05;
-        if( loadingScreen.box.position.x < -10 ) loadingScreen.box.position.x = 10;
-        loadingScreen.box.position.y = Math.sin(loadingScreen.box.position.x);
-
-        renderer.render(loadingScreen.scene2, loadingScreen.camera2);
-        return; // Stop the function here.
-      }
+      // if (everythingLoaded == false) {
+      //   requestAnimationFrame(render);
+      //
+      //   loadingScreen.box.position.x -= 0.05;
+      //   if( loadingScreen.box.position.x < -10 ) loadingScreen.box.position.x = 10;
+      //   loadingScreen.box.position.y = Math.sin(loadingScreen.box.position.x);
+      //
+      //   renderer.render(loadingScreen.scene2, loadingScreen.camera2);
+      //   return; // Stop the function here.
+      // }
 
       renderer.render(scene, camera);
       const fibSpiral1_obj = scene.getObjectByName('fibSpiral1');
@@ -743,16 +743,16 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
           everythingLoaded = true;
         }
 
-        if (everythingLoaded == false) {
-          requestAnimationFrame(render);
-
-          loadingScreen.box.position.x -= 0.05;
-          if( loadingScreen.box.position.x < -10 ) loadingScreen.box.position.x = 10;
-          loadingScreen.box.position.y = Math.sin(loadingScreen.box.position.x);
-
-          renderer.render(loadingScreen.scene2, loadingScreen.camera2);
-          return; // Stop the function here.
-        }
+        // if (everythingLoaded == false) {
+        //   requestAnimationFrame(render);
+        //
+        //   loadingScreen.box.position.x -= 0.05;
+        //   if( loadingScreen.box.position.x < -10 ) loadingScreen.box.position.x = 10;
+        //   loadingScreen.box.position.y = Math.sin(loadingScreen.box.position.x);
+        //
+        //   renderer.render(loadingScreen.scene2, loadingScreen.camera2);
+        //   return; // Stop the function here.
+        // }
 
         renderer.render(scene, camera);
 

@@ -45,6 +45,10 @@
 
   <canvas id="webgl"></canvas>
     <!-- <script src="lib/navigate.js"></script> -->
+
+    <script src="/lib/DRACOLoader.js"></script>
+    <script src="/lib/draco_decoder.js"></script>
+
     <script src="/lib/Tween.min.js"></script>
     <script src="/lib/perlin.js"></script>
     <script src="/lib/dat.gui.min.js"></script>
@@ -59,6 +63,7 @@
     import { DDSLoader } from './lib/DDSLoader.js';
     import { OBJLoader } from './lib/OBJLoader.js';
     import { MTLLoader } from './lib/MTLLoader.js';
+    import './lib/DRACOLoader.js';
 
     var loaded1;
     var loaded2;
@@ -104,7 +109,7 @@
 // my shit
 
 //PRACTICE LIGHTS IN CASE MATERIAL
-var ambientLight = new THREE.AmbientLight( 0xffffff, 0.4 );
+var ambientLight = new THREE.AmbientLight( 0xffffff, 0.7 );
 scene.add( ambientLight );
 // var ambientLight = new THREE.AmbientLight( 0xffffff, 0.8 );
 // scene.add( ambientLight );
@@ -113,7 +118,7 @@ var pointLight = new THREE.PointLight( 0xffffff, 0.1 );
 camera.add( pointLight );
 scene.add( camera );
 
-var directionalLightFib = new THREE.DirectionalLight( 6811631, 0 );
+var directionalLightFib = new THREE.DirectionalLight( 14833261, 0 );
   directionalLightFib.position.x = -6.0;
   directionalLightFib.position.y = 6.0;
   directionalLightFib.position.z = 6.0;
@@ -142,13 +147,13 @@ spotLight.shadow.camera.fov = 30;
 scene.add( spotLight );
 
 
-var geometry = new THREE.BoxGeometry( 7,8,7 );
+var geometry = new THREE.BoxGeometry( 9,5,9 );
 var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
   material.transparent = true;
   material.opacity = 0.0;
 var cube = new THREE.Mesh( geometry, material );
   cube.position.x = -4.5;
-  cube.position.y = 1.8;
+  cube.position.y = 0.0;
   cube.position.z = 8.0;
 scene.add( cube );
 
@@ -167,7 +172,78 @@ scene.add( cube );
 // scene.add( cubePractice );
 
 
+// // (Optional) Change decoder source directory (defaults to './').
+// THREE.DRACOLoader.setDecoderPath('./path/to/decoder/');
+// // (Optional) Use JS decoder (defaults to WebAssembly if supported).
+// THREE.DRACOLoader.setDecoderConfig({type: 'js'});
+// // (Optional) Pre-fetch decoder source files (defaults to load on demand).
+// THREE.DRACOLoader.getDecoderModule();
 
+var dracoLoader = new THREE.DRACOLoader();
+dracoLoader.load( 'assets/models/moravia/moraviaExtractedFurniture.drc', function ( moraviaExtractedFurniture ) {
+  var material = new THREE.MeshStandardMaterial( { color: 0xffffff } );
+    // material.transparent = true;
+    // material.opacity = 0.0;
+
+  var moraviaExtractedFurniture = new THREE.Mesh( moraviaExtractedFurniture , material )
+
+  moraviaExtractedFurniture.scale.set(0.08,0.08,0.08);
+  moraviaExtractedFurniture.translateX(-7.0);
+  moraviaExtractedFurniture.translateY(-3.0);
+  moraviaExtractedFurniture.translateZ(6.0);
+  moraviaExtractedFurniture.rotateY(-Math.PI/2);
+  moraviaExtractedFurniture.name = 'moraviaExtractedFurniture';
+  scene.add( moraviaExtractedFurniture );
+  loaded1 = true;
+
+  // // (Optional) Release the cached decoder module.
+  // THREE.DRACOLoader.releaseDecoderModule();
+
+} );
+
+var dracoLoader2 = new THREE.DRACOLoader();
+dracoLoader2.load( 'assets/models/moravia/moraviaExtractedBottom.drc', function ( moraviaExtractedBottom ) {
+  var material = new THREE.MeshStandardMaterial( { color: 0xffffff } );
+    // material.transparent = true;
+    // material.opacity = 0.0;
+
+  var moraviaExtractedBottom = new THREE.Mesh( moraviaExtractedBottom , material )
+
+  moraviaExtractedBottom.scale.set(0.08,0.08,0.08);
+  moraviaExtractedBottom.translateX(-7.0);
+  moraviaExtractedBottom.translateY(-3.0);
+  moraviaExtractedBottom.translateZ(6.0);
+  moraviaExtractedBottom.rotateY(-Math.PI/2);
+  moraviaExtractedBottom.name = 'moraviaExtractedBottom';
+  scene.add( moraviaExtractedBottom );
+  loaded2 = true;
+
+  // // (Optional) Release the cached decoder module.
+  // THREE.DRACOLoader.releaseDecoderModule();
+
+} );
+
+var dracoLoader3 = new THREE.DRACOLoader();
+dracoLoader3.load( 'assets/models/moravia/moraviaExtractedCeiling.drc', function ( moraviaExtractedCeiling ) {
+  var material = new THREE.MeshStandardMaterial( { color: 0xffffff } );
+    // material.transparent = true;
+    // material.opacity = 0.0;
+
+  var moraviaExtractedCeiling = new THREE.Mesh( moraviaExtractedCeiling , material )
+
+  moraviaExtractedCeiling.scale.set(0.08,0.08,0.08);
+  moraviaExtractedCeiling.translateX(-7.0);
+  moraviaExtractedCeiling.translateY(-3.0);
+  moraviaExtractedCeiling.translateZ(6.0);
+  moraviaExtractedCeiling.rotateY(-Math.PI/2);
+  moraviaExtractedCeiling.name = 'moraviaExtractedCeiling';
+  scene.add( moraviaExtractedCeiling );
+  loaded3 = true;
+
+  // // (Optional) Release the cached decoder module.
+  // THREE.DRACOLoader.releaseDecoderModule();
+
+} );
 
 //THIS SHIT WORKS?!?!?!? LOADING MTL AND OBJ
 var onProgress = function ( xhr ) {
@@ -177,102 +253,30 @@ var onProgress = function ( xhr ) {
 	}
 };
 var onError = function () { };
-
-// fibSpiral1
-var manager = new THREE.LoadingManager();
-new MTLLoader( manager )
-	.setPath( 'assets/models/fibSpiral/' )
-	.load( 'fibSpiral1.mtl', function ( materials ) {
-		materials.preload();
-    // materials.transparent = true;
-    // materials.opacity = 0.2;
-		new OBJLoader( manager )
-			.setMaterials( materials )
-			.setPath( 'assets/models/fibSpiral/' )
-			.load( 'fibSpiral1.obj', function ( fibSpiral1 ) {
-
-        fibSpiral1.scale.set(0.15,0.15,0.15);
-        fibSpiral1.translateX(-7.0);
-        fibSpiral1.translateY(-3.0);
-        fibSpiral1.translateZ(6.0);
-        // object.rotateX(Math.PI/2);
-        fibSpiral1.name = 'fibSpiral1';
-
-				scene.add( fibSpiral1 );
-        loaded1 = true;
-			}, onProgress,  onError );
-	} );
-
-// fibSpiral2
-var manager2 = new THREE.LoadingManager();
-new MTLLoader( manager2 )
-	.setPath( 'assets/models/fibSpiral/' )
-	.load( 'fibSpiral2.mtl', function ( materials ) {
-		materials.preload();
-		new OBJLoader( manager2 )
-			.setMaterials( materials )
-			.setPath( 'assets/models/fibSpiral/' )
-			.load( 'fibSpiral2.obj', function ( fibSpiral2 ) {
-
-        fibSpiral2.scale.set(0.15,0.15,0.15);
-        fibSpiral2.translateX(-7.0);
-        fibSpiral2.translateY(-3.0);
-        fibSpiral2.translateZ(6.0);
-        // object.rotateX(Math.PI/2);
-        fibSpiral2.name = 'fibSpiral2';
-
-				scene.add( fibSpiral2 );
-        loaded2 = true;
-			}, onProgress, onError );
-	} );
-
-// fibSpiralbottom
+// moraviaText
 var manager3 = new THREE.LoadingManager();
 new MTLLoader( manager3 )
-  .setPath( 'assets/models/fibSpiral/' )
-  .load( '2FibSpiralBottom.mtl', function ( materials ) {
+  .setPath( 'assets/models/textModels/' )
+  .load( 'moraviaText.mtl', function ( materials ) {
     materials.preload();
     new OBJLoader( manager3 )
       .setMaterials( materials )
-      .setPath( 'assets/models/fibSpiral/' )
-      .load( '2FibSpiralBottom.obj', function ( fibSpiral3 ) {
+      .setPath( 'assets/models/textModels/' )
+      .load( 'moraviaText.obj', function ( moraviaText ) {
 
-        fibSpiral3.scale.set(0.15,0.15,0.15);
-        fibSpiral3.translateX(-7.0);
-        fibSpiral3.translateY(-3.0);
-        fibSpiral3.translateZ(6.0);
-        // object.rotateX(Math.PI/2);
-        fibSpiral3.name = 'fibSpiral3';
+        moraviaText.scale.set(0.5,0.5,0.5);
+        moraviaText.translateX(7.0);
+        moraviaText.translateY(-1.5);
+        moraviaText.translateZ(-7.0);
+        moraviaText.rotateX(Math.PI/2);
+        // object.rotateY(Math.PI/2);
+        // object.rotateZ(0.1);
+        moraviaText.name = 'moraviaText';
 
-        scene.add( fibSpiral3 );
-        loaded3 = true;
+        scene.add( moraviaText );
+        // loaded3 = true;
       }, onProgress, onError );
   } );
-
-  // fibSpiralText
-  var manager3 = new THREE.LoadingManager();
-  new MTLLoader( manager3 )
-    .setPath( 'assets/models/textModels/' )
-    .load( 'fibLabText.mtl', function ( materials ) {
-      materials.preload();
-      new OBJLoader( manager3 )
-        .setMaterials( materials )
-        .setPath( 'assets/models/textModels/' )
-        .load( 'fibLabText.obj', function ( fibLabText ) {
-
-          fibLabText.scale.set(0.5,0.5,0.5);
-          fibLabText.translateX(7.0);
-          fibLabText.translateY(-1.5);
-          fibLabText.translateZ(-7.0);
-          fibLabText.rotateX(Math.PI/2);
-          // object.rotateY(Math.PI/2);
-          // object.rotateZ(0.1);
-          fibLabText.name = 'fibLabText';
-
-          scene.add( fibLabText );
-          // loaded3 = true;
-        }, onProgress, onError );
-    } );
 
     //interaction stuff redirect
         cube.on('click', function(ev) {
@@ -296,9 +300,9 @@ new MTLLoader( manager3 )
 
     function render() {
       renderer.render(scene, camera);
-      const fibSpiral1_obj = scene.getObjectByName('fibSpiral1');
-      const fibSpiral2_obj = scene.getObjectByName('fibSpiral2');
-      const fibSpiral3_obj = scene.getObjectByName('fibSpiral3');
+      const moraviaExtractedFurniture_obj = scene.getObjectByName('moraviaExtractedFurniture');
+      const moraviaExtractedBottom_obj = scene.getObjectByName('moraviaExtractedBottom');
+      const moraviaExtractedCeiling_obj = scene.getObjectByName('moraviaExtractedCeiling');
 
       const directionalLightFib_obj = scene.getObjectByName('fibSpiral7');
 
@@ -307,22 +311,22 @@ new MTLLoader( manager3 )
       }
 
       if (everythingLoaded == true) {
-        fibSpiral1_obj.rotation.y += 0.007;
-        fibSpiral2_obj.rotation.y += 0.007;
-        fibSpiral3_obj.rotation.y += 0.007;
+        moraviaExtractedFurniture_obj.rotation.y += 0.007;
+        moraviaExtractedBottom_obj.rotation.y += 0.007;
+        moraviaExtractedCeiling_obj.rotation.y += 0.007;
       }
 
-      if (everythingLoaded == true && shiftUp1 == true && fibSpiral1_obj.position.y < 0.0){
-        fibSpiral1_obj.position.y += 0.15;
+      if (everythingLoaded == true && shiftUp1 == true && moraviaExtractedFurniture_obj.position.y < 0.0){
+        moraviaExtractedFurniture_obj.position.y += 0.15;
       }
-      if (everythingLoaded == true && shiftUp1 == false && fibSpiral1_obj.position.y > -3.01){
-        fibSpiral1_obj.position.y -= 0.15;
+      if (everythingLoaded == true && shiftUp1 == false && moraviaExtractedFurniture_obj.position.y > -3.01){
+        moraviaExtractedFurniture_obj.position.y -= 0.15;
       }
-      if (everythingLoaded == true && shiftUp2 == true && fibSpiral2_obj.position.y < 3.0){
-        fibSpiral2_obj.position.y += 0.15;
+      if (everythingLoaded == true && shiftUp2 == true && moraviaExtractedCeiling_obj.position.y < 3.0){
+        moraviaExtractedCeiling_obj.position.y += 0.15;
       }
-      if (everythingLoaded == true && shiftUp2 == false && fibSpiral2_obj.position.y > -3.01){
-        fibSpiral2_obj.position.y -= 0.15;
+      if (everythingLoaded == true && shiftUp2 == false && moraviaExtractedCeiling_obj.position.y > -3.01){
+        moraviaExtractedCeiling_obj.position.y -= 0.15;
       }
 
       if (shiftUp1 == true & directionalLightFib.intensity < 0.8){
@@ -344,8 +348,8 @@ new MTLLoader( manager3 )
 
 //Interaction functions (redirect)
     function redirect1(dom) {
-      location.replace("fibonacciLabyrinth.html")
-      console.log("redirectfibLab2")
+      location.replace("moravia.html")
+      console.log("redirectMoravia")
     }
       </script>
 
@@ -389,12 +393,10 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
       var loaded1;
       var loaded2;
       var loaded3;
-      var loaded4;
       var everythingLoaded;
       var shiftUp1;
       var shiftUp2;
       var shiftUp3;
-      var shiftUp4;
 
 
       window.addEventListener('resize', onWindowResize, false);
@@ -439,7 +441,7 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
   // my shit
 
   //PRACTICE LIGHTS IN CASE MATERIAL
-  var ambientLight = new THREE.AmbientLight( 0xffffff, 0.4 );
+  var ambientLight = new THREE.AmbientLight( 0xffffff, 0.7 );
   scene.add( ambientLight );
   // var ambientLight = new THREE.AmbientLight( 0xffffff, 0.8 );
   // scene.add( ambientLight );
@@ -448,7 +450,7 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
   camera.add( pointLight );
   scene.add( camera );
 
-  var directionalLightFib = new THREE.DirectionalLight( 6811631, 0 );
+  var directionalLightFib = new THREE.DirectionalLight( 14833261, 0 );
     directionalLightFib.position.x = -6.0;
     directionalLightFib.position.y = 6.0;
     directionalLightFib.position.z = 6.0;
@@ -494,6 +496,72 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
   //   cube1.rotateY(Math.PI/4)
   // scene.add( cube1 );
 
+  var dracoLoader = new THREE.DRACOLoader();
+  dracoLoader.load( 'assets/models/revit/revitConstructionDocuments1.drc', function ( revitConstructionDocuments1 ) {
+    var material = new THREE.MeshStandardMaterial( { color: 0xffffff } );
+      // material.transparent = true;
+      // material.opacity = 0.0;
+
+    var revitConstructionDocuments1 = new THREE.Mesh( revitConstructionDocuments1 , material )
+
+    revitConstructionDocuments1.scale.set(0.08,0.08,0.08);
+    revitConstructionDocuments1.translateX(-7.0);
+    revitConstructionDocuments1.translateY(-3.0);
+    revitConstructionDocuments1.translateZ(6.0);
+    revitConstructionDocuments1.rotateY(-Math.PI/2);
+    revitConstructionDocuments1.name = 'revitConstructionDocuments1';
+    scene.add( revitConstructionDocuments1 );
+    loaded1 = true;
+
+    // // (Optional) Release the cached decoder module.
+    // THREE.DRACOLoader.releaseDecoderModule();
+
+  } );
+
+  var dracoLoader2 = new THREE.DRACOLoader();
+  dracoLoader2.load( 'assets/models/revit/revitConstructionDocuments2.drc', function ( revitConstructionDocuments2 ) {
+    var material = new THREE.MeshStandardMaterial( { color: 0xffffff } );
+      // material.transparent = true;
+      // material.opacity = 0.0;
+
+    var revitConstructionDocuments2 = new THREE.Mesh( revitConstructionDocuments2 , material )
+
+    revitConstructionDocuments2.scale.set(0.08,0.08,0.08);
+    revitConstructionDocuments2.translateX(-7.0);
+    revitConstructionDocuments2.translateY(-3.0);
+    revitConstructionDocuments2.translateZ(6.0);
+    revitConstructionDocuments2.rotateY(-Math.PI/2);
+    revitConstructionDocuments2.name = 'revitConstructionDocuments2';
+    scene.add( revitConstructionDocuments2 );
+    loaded2 = true;
+
+    // // (Optional) Release the cached decoder module.
+    // THREE.DRACOLoader.releaseDecoderModule();
+
+  } );
+
+  var dracoLoader3 = new THREE.DRACOLoader();
+  dracoLoader3.load( 'assets/models/revit/revitConstructionDocuments3.drc', function ( revitConstructionDocuments3 ) {
+    var material = new THREE.MeshStandardMaterial( { color: 0xffffff } );
+      // material.transparent = true;
+      // material.opacity = 0.0;
+
+    var revitConstructionDocuments3 = new THREE.Mesh( revitConstructionDocuments3 , material )
+
+    revitConstructionDocuments3.scale.set(0.08,0.08,0.08);
+    revitConstructionDocuments3.translateX(-7.0);
+    revitConstructionDocuments3.translateY(-3.0);
+    revitConstructionDocuments3.translateZ(6.0);
+    revitConstructionDocuments3.rotateY(-Math.PI/2);
+    revitConstructionDocuments3.name = 'revitConstructionDocuments3';
+    scene.add( revitConstructionDocuments3 );
+    loaded3 = true;
+
+    // // (Optional) Release the cached decoder module.
+    // THREE.DRACOLoader.releaseDecoderModule();
+
+  } );
+
 
   //THIS SHIT WORKS?!?!?!? LOADING MTL AND OBJ
   var onProgress = function ( xhr ) {
@@ -503,132 +571,30 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
   	}
   };
   var onError = function () { };
+  // revitText
+  var manager3 = new THREE.LoadingManager();
+  new MTLLoader( manager3 )
+    .setPath( 'assets/models/textModels/' )
+    .load( 'revitText.mtl', function ( materials ) {
+      materials.preload();
+      new OBJLoader( manager3 )
+        .setMaterials( materials )
+        .setPath( 'assets/models/textModels/' )
+        .load( 'revitText.obj', function ( revitText ) {
 
-  // fiftyAmerica1
-  var manager = new THREE.LoadingManager();
-  new MTLLoader( manager )
-  	.setPath( 'assets/models/50ShadesOfAmerica/' )
-  	.load( 'new50ShadesOfAmerica1.mtl', function ( materials ) {
-  		materials.preload();
-      // materials.transparent = true;
-      // materials.opacity = 0.2;
-  		new OBJLoader( manager )
-  			.setMaterials( materials )
-  			.setPath( 'assets/models/50ShadesOfAmerica/' )
-  			.load( 'new50ShadesOfAmerica1.obj', function ( fiftyAmerica1 ) {
+          revitText.scale.set(0.5,0.5,0.5);
+          revitText.translateX(7.0);
+          revitText.translateY(-1.5);
+          revitText.translateZ(-7.0);
+          revitText.rotateX(Math.PI/2);
+          // object.rotateY(Math.PI/2);
+          // object.rotateZ(0.1);
+          revitText.name = 'revitText';
 
-          fiftyAmerica1.scale.set(0.08,0.08,0.08);
-          fiftyAmerica1.translateX(-6.0);
-          fiftyAmerica1.translateY(-2.0);
-          fiftyAmerica1.translateZ(6.0);
-          fiftyAmerica1.rotateX(-Math.PI/2);
-          fiftyAmerica1.name = 'fiftyAmerica1';
-
-  				scene.add( fiftyAmerica1 );
-          loaded1 = true;
-  			}, onProgress,  onError );
-  	} );
-
-  // fiftyAmerica2
-  var manager = new THREE.LoadingManager();
-  new MTLLoader( manager )
-  	.setPath( 'assets/models/50ShadesOfAmerica/' )
-  	.load( 'new50ShadesOfAmerica2.mtl', function ( materials ) {
-  		materials.preload();
-      // materials.transparent = true;
-      // materials.opacity = 0.2;
-  		new OBJLoader( manager )
-  			.setMaterials( materials )
-  			.setPath( 'assets/models/50ShadesOfAmerica/' )
-  			.load( 'new50ShadesOfAmerica2.obj', function ( fiftyAmerica2 ) {
-
-          fiftyAmerica2.scale.set(0.08,0.08,0.08);
-          fiftyAmerica2.translateX(-6.0);
-          fiftyAmerica2.translateY(-2.0);
-          fiftyAmerica2.translateZ(6.0);
-          fiftyAmerica2.rotateX(-Math.PI/2);
-          fiftyAmerica2.name = 'fiftyAmerica2';
-
-  				scene.add( fiftyAmerica2 );
-          loaded2 = true;
-  			}, onProgress,  onError );
-  	} );
-
-  // fiftyAmerica3
-  var manager = new THREE.LoadingManager();
-  new MTLLoader( manager )
-  	.setPath( 'assets/models/50ShadesOfAmerica/' )
-  	.load( 'new50ShadesOfAmerica3.mtl', function ( materials ) {
-  		materials.preload();
-      // materials.transparent = true;
-      // materials.opacity = 0.2;
-  		new OBJLoader( manager )
-  			.setMaterials( materials )
-  			.setPath( 'assets/models/50ShadesOfAmerica/' )
-  			.load( 'new50ShadesOfAmerica3.obj', function ( fiftyAmerica3 ) {
-
-          fiftyAmerica3.scale.set(0.08,0.08,0.08);
-          fiftyAmerica3.translateX(-6.0);
-          fiftyAmerica3.translateY(-2.0);
-          fiftyAmerica3.translateZ(6.0);
-          fiftyAmerica3.rotateX(-Math.PI/2);
-          fiftyAmerica3.name = 'fiftyAmerica3';
-
-  				scene.add( fiftyAmerica3 );
-          loaded3 = true;
-  			}, onProgress,  onError );
-  	} );
-
-  // fiftyAmerica4
-  var manager = new THREE.LoadingManager();
-  new MTLLoader( manager )
-  	.setPath( 'assets/models/50ShadesOfAmerica/' )
-  	.load( 'new50ShadesOfAmerica4.mtl', function ( materials ) {
-  		materials.preload();
-      // materials.transparent = true;
-      // materials.opacity = 0.2;
-  		new OBJLoader( manager )
-  			.setMaterials( materials )
-  			.setPath( 'assets/models/50ShadesOfAmerica/' )
-  			.load( 'new50ShadesOfAmerica4.obj', function ( fiftyAmerica4 ) {
-
-          fiftyAmerica4.scale.set(0.08,0.08,0.08);
-          fiftyAmerica4.translateX(-6.0);
-          fiftyAmerica4.translateY(-2.0);
-          fiftyAmerica4.translateZ(6.0);
-          fiftyAmerica4.rotateX(-Math.PI/2);
-          // fiftyAmerica4.rotateY(Math.PI/2);
-          fiftyAmerica4.name = 'fiftyAmerica4';
-
-  				scene.add( fiftyAmerica4 );
-          loaded4 = true;
-  			}, onProgress,  onError );
-  	} );
-
-    // fiftyAmericaText
-    var manager3 = new THREE.LoadingManager();
-    new MTLLoader( manager3 )
-      .setPath( 'assets/models/textModels/' )
-      .load( 'fiftyAmericaText.mtl', function ( materials ) {
-        materials.preload();
-        new OBJLoader( manager3 )
-          .setMaterials( materials )
-          .setPath( 'assets/models/textModels/' )
-          .load( 'fiftyAmericaText.obj', function ( fiftyAmericaText ) {
-
-            fiftyAmericaText.scale.set(0.5,0.5,0.5);
-            fiftyAmericaText.translateX(7.0);
-            fiftyAmericaText.translateY(-1.5);
-            fiftyAmericaText.translateZ(-10.0);
-            fiftyAmericaText.rotateX(Math.PI/2);
-            // object.rotateY(Math.PI/2);
-            // object.rotateZ(0.1);
-            fiftyAmericaText.name = 'fiftyAmericaText';
-
-            scene.add( fiftyAmericaText );
-            // loaded3 = true;
-          }, onProgress, onError );
-      } );
+          scene.add( revitText );
+          // loaded3 = true;
+        }, onProgress, onError );
+    } );
 
       //interaction stuff redirect
           cube.on('click', function(ev) {
@@ -641,14 +607,12 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
             shiftUp1 = true;
             shiftUp2 = true;
             shiftUp3 = true;
-            shiftUp4 = true;
             console.log("shifting up of fiftyAmerica");
           });
           cube.on('mouseout', function(ev) {
             shiftUp1 = false;
             shiftUp2 = false;
             shiftUp3 = false;
-            shiftUp4 = false;
             console.log("shifting down of fiftyAmerica");
           });
 
@@ -657,69 +621,38 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
       function render() {
         renderer.render(scene, camera);
 
-        const fiftyAmerica1_obj = scene.getObjectByName('fiftyAmerica1');
-        const fiftyAmerica2_obj = scene.getObjectByName('fiftyAmerica2');
-        const fiftyAmerica3_obj = scene.getObjectByName('fiftyAmerica3');
-        const fiftyAmerica4_obj = scene.getObjectByName('fiftyAmerica4');
+        const revitConstructionDocuments1_obj = scene.getObjectByName('revitConstructionDocuments1');
+        const revitConstructionDocuments2_obj = scene.getObjectByName('revitConstructionDocuments2');
+        const revitConstructionDocuments3_obj = scene.getObjectByName('revitConstructionDocuments3');
 
         const directionalLightFib_obj = scene.getObjectByName('fibSpiral7');
 
-        if (loaded1 == true && loaded2 == true && loaded3 == true && loaded4 == true) {
+        if (loaded1 == true && loaded2 == true && loaded3 == true) {
           everythingLoaded = true;
         }
 
         if (everythingLoaded == true) {
-          fiftyAmerica1_obj.rotation.z += 0.007;
-          fiftyAmerica2_obj.rotation.z += 0.007;
-          fiftyAmerica3_obj.rotation.z += 0.007;
-          fiftyAmerica4_obj.rotation.z += 0.007;
+          revitConstructionDocuments1_obj.rotation.y += 0.007;
+          revitConstructionDocuments2_obj.rotation.y += 0.007;
+          revitConstructionDocuments3_obj.rotation.y += 0.007;
         }
         // if (everythingLoaded == true) {
         //   fiftyAmerica4_obj.rotation.x = (Math.PI/2);;
         // }
 
-        if (everythingLoaded == true && shiftUp3 == true && fiftyAmerica3_obj.position.y < 4.0){
-          fiftyAmerica3_obj.position.y += 0.15;
+        if (everythingLoaded == true && shiftUp3 == true && revitConstructionDocuments1_obj.position.y < 3.0){
+          revitConstructionDocuments1_obj.position.y += 0.15;
         }
-        if (everythingLoaded == true && shiftUp3 == false && fiftyAmerica3_obj.position.y > -2.0){
-          fiftyAmerica3_obj.position.y -= 0.15;
-        }
-
-        if (everythingLoaded == true && shiftUp1 == true && fiftyAmerica1_obj.position.y < 2.0){
-          fiftyAmerica1_obj.position.y += 0.15;
-        }
-        if (everythingLoaded == true && shiftUp1 == false && fiftyAmerica1_obj.position.y > -2.0){
-          fiftyAmerica1_obj.position.y -= 0.15;
+        if (everythingLoaded == true && shiftUp3 == false && revitConstructionDocuments1_obj.position.y > -3.0){
+          revitConstructionDocuments1_obj.position.y -= 0.15;
         }
 
-        if (everythingLoaded == true && shiftUp2 == true && fiftyAmerica2_obj.position.y < 0.0){
-          fiftyAmerica2_obj.position.y += 0.15;
+        if (everythingLoaded == true && shiftUp1 == true && revitConstructionDocuments2_obj.position.y < 0.0){
+          revitConstructionDocuments2_obj.position.y += 0.15;
         }
-        if (everythingLoaded == true && shiftUp2 == false && fiftyAmerica2_obj.position.y > -2.0){
-          fiftyAmerica2_obj.position.y -= 0.15;
+        if (everythingLoaded == true && shiftUp1 == false && revitConstructionDocuments2_obj.position.y > -3.0){
+          revitConstructionDocuments2_obj.position.y -= 0.15;
         }
-
-
-
-        // if (everythingLoaded == true && shiftUp3 == true && fiftyAmerica3_obj.position.y > -7.0){
-        //   fiftyAmerica3_obj.position.y -= 0.15;
-        // }
-        //
-        // if (everythingLoaded == true && shiftUp4 == true && fibSpiral45_obj.position.y > -7.0){
-        //   fibSpiral45_obj.position.y -= 0.15;
-        // }
-        //
-        // if (everythingLoaded == true && shiftUp2 == false && fiftyAmerica2_obj.position.y > 0.01){
-        //   fiftyAmerica2_obj.position.y -= 0.15;
-        // }
-        //
-        // if (everythingLoaded == true && shiftUp3 == false && fiftyAmerica3_obj.position.y < -0.01){
-        //   fiftyAmerica3_obj.position.y += 0.15;
-        // }
-        //
-        // if (everythingLoaded == true && shiftUp4 == false && fibSpiral45_obj.position.y < -0.01){
-        //   fibSpiral45_obj.position.y += 0.15;
-        // }
 
 
         if (shiftUp1 == true & directionalLightFib.intensity < 0.8){
@@ -741,8 +674,8 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
 
   //Interaction functions (redirect)
       function redirect1(dom) {
-        location.replace("50ShadesOfAmerica.html")
-        console.log("redirectfiftyAmerica2")
+        location.replace("revit.html")
+        console.log("redirectRevit")
       }
     </script>
 </body>

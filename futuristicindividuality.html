@@ -97,36 +97,36 @@
 
     var interaction = new THREE.Interaction(renderer, scene, camera);
 
-    ////////////
-    //loading Screen
-    var loadingManager = null;
-    var RESOURCES_LOADED = false;
-    // An object to hold all the things needed for our loading screen
-    var loadingScreen = {
-    	scene2: new THREE.Scene(),
-    	camera2: new THREE.PerspectiveCamera(90, 1280/720, 0.1, 100),
-    	box: new THREE.Mesh(
-    		new THREE.BoxGeometry(0.5,0.5,0.5),
-    		new THREE.MeshBasicMaterial({ color:0x4444ff })
-    	)
-    };
-    // Set up the loading screen's scene.
-    // It can be treated just like our main scene.
-    loadingScreen.box.position.set(0,0,5);
-    loadingScreen.camera2.lookAt(loadingScreen.box.position);
-    loadingScreen.scene2.add(loadingScreen.box);
-    // Create a loading manager to set RESOURCES_LOADED when appropriate.
-    // Pass loadingManager to all resource loaders.
-    loadingManager = new THREE.LoadingManager();
-
-    loadingManager.onProgress = function(item, loaded, total){
-      console.log(item, loaded, total);
-    };
-
-    loadingManager.onLoad = function(){
-      console.log("loaded all resources");
-      RESOURCES_LOADED = true;
-    };
+    // ////////////
+    // //loading Screen
+    // var loadingManager = null;
+    // var RESOURCES_LOADED = false;
+    // // An object to hold all the things needed for our loading screen
+    // var loadingScreen = {
+    // 	scene2: new THREE.Scene(),
+    // 	camera2: new THREE.PerspectiveCamera(90, 1280/720, 0.1, 100),
+    // 	box: new THREE.Mesh(
+    // 		new THREE.BoxGeometry(0.5,0.5,0.5),
+    // 		new THREE.MeshBasicMaterial({ color:0x4444ff })
+    // 	)
+    // };
+    // // Set up the loading screen's scene.
+    // // It can be treated just like our main scene.
+    // loadingScreen.box.position.set(0,0,5);
+    // loadingScreen.camera2.lookAt(loadingScreen.box.position);
+    // loadingScreen.scene2.add(loadingScreen.box);
+    // // Create a loading manager to set RESOURCES_LOADED when appropriate.
+    // // Pass loadingManager to all resource loaders.
+    // loadingManager = new THREE.LoadingManager();
+    //
+    // loadingManager.onProgress = function(item, loaded, total){
+    //   console.log(item, loaded, total);
+    // };
+    //
+    // loadingManager.onLoad = function(){
+    //   console.log("loaded all resources");
+    //   RESOURCES_LOADED = true;
+    // };
 
 
 
@@ -393,7 +393,7 @@ new MTLLoader( manager3 )
 
 //Interaction functions (redirect)
     function redirect1(dom) {
-      location.replace("fibonacciLabyrinth.html")
+      location.replace("fibonaccilabyrinth.html")
       console.log("redirectfibLab2")
     }
       </script>
@@ -487,37 +487,37 @@ FILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLERFILLER -->
 
 
 
-//loading Screen
-var loadingManager = null;
-var RESOURCES_LOADED = false;
-// An object to hold all the things needed for our loading screen
-var loadingScreen = {
-	scene2: new THREE.Scene(),
-	camera2: new THREE.PerspectiveCamera(90, 1280/720, 0.1, 100),
-	box: new THREE.Mesh(
-		new THREE.BoxGeometry(0.5,0.5,0.5),
-		new THREE.MeshBasicMaterial({ color:0x4444ff })
-	)
-};
-
-// Set up the loading screen's scene.
-// It can be treated just like our main scene.
-loadingScreen.box.position.set(0,0,5);
-loadingScreen.camera2.lookAt(loadingScreen.box.position);
-loadingScreen.scene2.add(loadingScreen.box);
-
-// Create a loading manager to set RESOURCES_LOADED when appropriate.
-// Pass loadingManager to all resource loaders.
-loadingManager = new THREE.LoadingManager();
-
-loadingManager.onProgress = function(item, loaded, total){
-  console.log(item, loaded, total);
-};
-
-loadingManager.onLoad = function(){
-  console.log("loaded all resources");
-  RESOURCES_LOADED = true;
-};
+// //loading Screen
+// var loadingManager = null;
+// var RESOURCES_LOADED = false;
+// // An object to hold all the things needed for our loading screen
+// var loadingScreen = {
+// 	scene2: new THREE.Scene(),
+// 	camera2: new THREE.PerspectiveCamera(90, 1280/720, 0.1, 100),
+// 	box: new THREE.Mesh(
+// 		new THREE.BoxGeometry(0.5,0.5,0.5),
+// 		new THREE.MeshBasicMaterial({ color:0x4444ff })
+// 	)
+// };
+//
+// // Set up the loading screen's scene.
+// // It can be treated just like our main scene.
+// loadingScreen.box.position.set(0,0,5);
+// loadingScreen.camera2.lookAt(loadingScreen.box.position);
+// loadingScreen.scene2.add(loadingScreen.box);
+//
+// // Create a loading manager to set RESOURCES_LOADED when appropriate.
+// // Pass loadingManager to all resource loaders.
+// loadingManager = new THREE.LoadingManager();
+//
+// loadingManager.onProgress = function(item, loaded, total){
+//   console.log(item, loaded, total);
+// };
+//
+// loadingManager.onLoad = function(){
+//   console.log("loaded all resources");
+//   RESOURCES_LOADED = true;
+// };
 
 
 

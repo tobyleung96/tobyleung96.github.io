@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="/styles/all.css" media="all" />
+  <link rel="stylesheet" href="https://use.typekit.net/wun8trw.css">
+
+
+  <title>Toby Leung - Barbot</title>
+</head>
+
+<body>
+  <div id="headerPhoto">
+    <img src="assets/models/barbot/renderedBarbot.jpg" alt="Rendered Barbot">
+    <h1>Barbot</h1>
+  </div>
+
+  <div class="flex-container">
+    <div id="intro">
+      <div id="subHeader">Introduction</div>
+      <div id="introText">
+        Have you ever arrived home after a long day of work and just want to sit down and enjoy a nice refreshing beverage? Or maybe you’re having some friends over for some drinks and a board game but don’t want to be held up in the kitchen making everyone’s drink by hand while the others enjoy all the fun. The Barbot is your solution!</br>
+The product we prototyped and developed was an automated beverage maker and dispenser designed for any household. The product has the base functionality of crafting pre-programmed beverages on command. What makes this product unique however is the auto-make feature. The prototype uses a temperature sensor to measure the current user/customer’s present state. From this sensor, the machine decides to craft a specific drink tailored to the exact customer at the exact time of order.
+      </div>
+    </div>
+    <div id="Bbody1">
+      <div id="subHeader">Stages of Prototyping</div>
+      <div id="Bbody1b">
+        <div id="Bbody1ba">
+        Mark 1: Initial Prototype
+        </br>
+                The first prototype we made contained all the necessary parts
+        for the barbot to succeed. This includes: (1) a rotating upper
+        section holstering 6 different liquids, (2) a ring that moves
+        vertically to push up against the bottle top attachment, (3) a
+        case to house all the innards, and lastly a panel to provide
+        user input and feedback.
+      </div>
+        <div id="Bbody1bb">
+          <img src="assets/models/barbot/mark1Render2.jpg" alt="mark1Render2">
+          <img src="assets/models/barbot/mark1Render.jpg" alt="mark1Render">
+          <img src="assets/models/barbot/mark1Render3.jpg" alt="mark1Render3">
+        </div>
+      </div>
+      <div id="Bbody1c">
+        <div id="Bbody1ca">
+        Mark 2: A Prototype To 3D Print
+        </br>
+                The second prototype was designed in such a way that the
+        entire barbot could be 3D printed in 9 separate pieces. Each
+        of these pieces would fit perfectly on the limits of the printers
+        we have at Gates Hall. The intention of this was to expedite the
+        building process, so the team could focus on programming
+        various functionalities for the user. Furthermore, Mark 2 was
+        designed with the intention of providing adequate space for
+        the electronics that it was to house. This meant less curves
+        and acute corners, but still the same sleek design.
+        </div>
+        <img src="assets/models/barbot/mark2Pen.jpg" alt="mark2Pen">
+      </div>
+      <div id="Bbody1d">
+        <div id="Bbody1da">
+        Mark 3: Final Lasercut Design
+        </br>
+                After failed attempts of 3D printing such complex models,
+        we had to go back to the drawing board. Our solution was
+        to design faces that could be laser cut and pieced together.
+        This minimized our design to even less curves, ergo we
+        adopted an already utilized motif: the hexagon. Reflecting
+        our six sided rotating holster, the base of our model is a
+        CNC routered piece of MDF wood, while the plexiglass
+        sides were arranged to fit on our two 24”x24” sheets. When
+        assembled, we applied final touches of beautification such
+        as a gradient paint job, color matched brackets, and of
+        course the slightly obnoxious (but passable) rotor ornament.
+        </div>
+        <img src="assets/models/barbot/lasercutPRINTposter1.png" alt="lasercut lines">
+      </div>
+    </div>
+    <div id="Bbody2">
+      <div id="Bbody2b">
+      <div id="subHeader">Implementation</div>
+      Our implementation of functionalities was accomplished through using two different microcontrollers: the
+Arduino Mega, and the Arduino Uno. The reason for this was because we had to run some processes
+simultaneously.</br></br>
+Arduino Mega: The mega controlled most of our inputs and outputs. Occupying 2 direction pins and 2 step pins, it easily
+powered our 4 motors. The remaining pins were connected to the keypad, LCD display, and temperature
+sensor. </br></br>
+Arduino Uno: We separated the functions of the LED strip as it was a function that we wanted running in the background
+of the bot. The initial design was for the two microcontrollers to communicate through I2C in such a way that
+the LED provided graphic feedback to the user, but due to a lack of time that goal was unaccomplished.
+        </div>
+      <div id="Bbody2c">
+        <img src="assets/models/barbot/diagonalView.jpg" alt="electronics diagonal view">
+        <img src="assets/models/barbot/sideView.jpg" alt="electronics side view">
+      </div>
+    </div>
+    <div id="Bbody3">
+      <iframe src="https://www.youtube.com/embed/x0L2rIV7krA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+
+
+  <div id="navbar">
+    <a href="index.html">
+        <img src="/assets/textures/gradientCircle.png" alt="Logo">
+    </a>
+    <a href="futuristicindividuality.html">FUTURISTIC INDIVIDUALITY</a>
+    <a href="methodical.html">METHODICAL</a>
+    <a href="empathy.html">EMPATHY</a>
+    <a href="contact.html" id="contactMenu">CONTACT</a>
+  </div>
+
+</body>
+
+</html>

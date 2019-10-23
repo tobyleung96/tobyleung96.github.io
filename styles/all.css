@@ -638,14 +638,12 @@ canvas {
   display: flex;
   flex-direction: column;
   background-color: #f1f1f1;
-  /* padding: 0px; */
   margin-top: -0.4%;
 }
 
 #HCbody2ca img {
   width: 100%;
   min-height: 22%;
-  /* max-width: 300px; */
   object-fit: cover;
   object-position: center;
   margin: 1%;
@@ -665,8 +663,6 @@ canvas {
 #HCbody3 {
   color: black;
   background-color: #f1f1f1;
-  /* right:50%;
-  left:50%; */
 }
 
 #contact1 {
@@ -679,7 +675,6 @@ canvas {
   height:42%;
   margin-left:auto;
   margin-right:auto;
-  /* margin-top: 100px; */
   display: block;
   margin-top: 40px;
 }
@@ -703,16 +698,6 @@ canvas {
   line-height: 15px;
 }
 
-
-/* #contact2 {
-  background-color: rgb(35,35,35);
-  color: white;
-}
-
-#contact2 img {
-
-} */
-
 #logoCircle {
   width:10%;
   height:10%;
@@ -722,10 +707,6 @@ canvas {
   margin-bottom: 15px;
   display: block;
 }
-
-/* #contact1 a {
-  text-decoration: none;
-} */
 
 #contact1 a:link {
   text-decoration: none;
@@ -760,16 +741,12 @@ canvas {
 }
 
 #loader {
-  /* width: 1000px;
-  height: 1000px;
-  background-color: blue; */
   text-align: center;
 }
 
 #innerCircle {
   color: rgb(20, 20, 20);
   background-color: white;
-
   position: absolute;
   width: 410px;
   height: 410px;
@@ -791,11 +768,6 @@ canvas {
 
 #p1 {
   margin: 2%;
-  /* margin-top: 8%;
-  margin-bottom: 8%; */
-  /* background-color: rgb(5,5,5);
-  color: white; */
-  /* padding: 100px; */
   letter-spacing: 0.8px;
   display: inline-block;
   text-align: justify;
@@ -808,8 +780,6 @@ canvas {
 
 #emphasis {
   font-weight: 400;
-  /* padding-left: 0.5px;
-  padding-right: 0.5px; */
   padding: 2px;
   color: white;
   background-color: rgb(20, 20, 20);
@@ -823,13 +793,6 @@ canvas {
 #outsideCircle {
   color: rgb(20, 20, 20);
   background-color: white;
-
-  /* position: absolute; */
-  /* top: 50%; */
-  /* left: 50%; */
-  /* margin-left: -5px;  */
-  /* margin is -0.5 * dimension */
-  /* margin-top: -5px; */
   border-radius: 50%;
 
   text-align: center;
@@ -844,52 +807,24 @@ canvas {
   animation-timing-function: ease-in-out;
   -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
   -webkit-animation-duration: 30s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: ease-in-out;
 }
 
 #clicker{
   margin-top: 30px;
-  /* padding-top: 20px; */
-  /* border-top: black dotted 0.5px; */
-  /* padding: 5px; */
-  /* width: 50%; */
-  /* position: absolute; */
-  /* margin: 0 auto; */
 }
 
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes example {
-  0%   {background-color:rgb(103,239,239);}
-  16.6% {background-color:rgb(103,239,239);}
-  33.3%  {background-color:rgb(226,86,109);}
-  50%  {background-color:rgb(226,86,109);}
-  66.6%  {background-color:rgb(255, 255, 255);}
-  83.3%  {background-color:rgb(255, 255, 255);}
-  100% {background-color:rgb(103,239,239);}
+  0%   {background-color:rgb(255, 255, 255); width:0%; height: 0%;}
+  16.6% {background-color:rgb(103,239,239); width:800px; height: 800px;}
+  33.3%  {background-color:rgb(255, 255, 255); width:0%; height: 0%;}
+  50%  {background-color:rgb(226,86,109); width:800px; height: 800px;}
+  66.6%  {background-color:rgb(255, 255, 255); width:0%; height: 0%;}
+  83.3%  {background-color:rgb(255, 255, 255); width: 800px; height: 800px;}
+  100% {background-color:rgb(255, 255, 255); width:0%; height: 0%;}
 }
-
-/* Standard syntax */
-/* @keyframes example {
-  0%   {background-color:rgb(103,239,239); width:900px; height: 900px; margin-left:-250px; margin-top:-250px; top:28.5%;left:30.5%;}
-  16.6% {background-color:rgb(103,239,239); width:0%; height: 0%; margin-left:0px; margin-top:0px; top:50%;left:50%;}
-  33.3%  {background-color:rgb(226,86,109);width:900px; height: 900px; margin-left:-250px; margin-top:-250px; top:28.5%;left:30.5%;}
-  50%  {background-color:rgb(226,86,109); width:0%; height: 0%; margin-left:0px; margin-top:0px; top:50%;left:50%;}
-  66.6%  {background-color:rgb(255, 255, 255);width:900px; height: 900px; margin-left:-250px; margin-top:-250px; top:28.5%;left:30.5%;}
-  83.3%  {background-color:rgb(255, 255, 255); width:0%; height: 0%; margin-left:0px; margin-top:0px; top:50%;left:50%;}
-  100% {background-color:rgb(103,239,239);width:900px; height: 900px; margin-left:-250px; margin-top:-250px; top:28.5%;left:30.5%;}
-} */
-
-/* Standard syntax */
-/* @keyframes example {
-  0%   {background-color:rgb(255, 255, 255); width:0%; height: 0%; margin-left:0px; margin-top:0px; top:50%;left:50%;}
-  16.6% {background-color:rgb(103,239,239); width:900px; height: 900px; margin-left:-250px; margin-top:-250px; top:28.5%;left:30.5%;}
-  33.3%  {background-color:rgb(255, 255, 255); width:0%; height: 0%; margin-left:0px; margin-top:0px; top:50%;left:50%;}
-  50%  {background-color:rgb(226,86,109); width:900px; height: 900px; margin-left:-250px; margin-top:-250px; top:28.5%;left:30.5%;}
-  66.6%  {background-color:rgb(255, 255, 255); width:0%; height: 0%; margin-left:0px; margin-top:0px; top:50%;left:50%;}
-  83.3%  {background-color:rgb(255, 255, 255); width:900px; height: 900px; margin-left:-250px; margin-top:-250px; top:28.5%;left:30.5%;}
-  100% {background-color:rgb(255, 255, 255); width:0%; height: 0%; margin-left:0px; margin-top:0px; top:50%;left:50%;}
-
-} */
 
 @keyframes example {
   0%   {background-color:rgb(255, 255, 255); width:0%; height: 0%;}

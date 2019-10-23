@@ -4,14 +4,14 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, height=device-height initial-scale=1" />
   <link rel="stylesheet" type="text/css" href="styles/all.css" media="all" />
   <link rel="stylesheet" href="https://use.typekit.net/wun8trw.css">
 
   <title>Toby Leung - Portfolio</title>
 </head>
 
-<body>
+<body onload="myFunction()" style="margin:0;">
   <div id="navbar" >
     <a href="index.html">
         <img src="/assets/textures/gradientCircle.png" alt="Logo">
@@ -22,7 +22,41 @@
     <a href="contact.html" id="contactMenu">CONTACT</a>
   </div>
 
-  <canvas id="webgl"></canvas>
+  <div id="loader">
+    <div id="outsideCircle">
+    </div>
+    <div id="innerCircle">
+      <div id="innerText">
+      <p id="p1">As a <span id="emphasis">Spatial Experience Designer</span>, I've always asking myself
+        <span id="italic">"how can I elevate the experience of space"</span>. The answer to this was found by
+        <span id="emphasis">embrace the digital tools</span> available, rather that see them as
+        barriers. As a result, I have essentially become an <span id="emphasis">Interior Designer
+        with an upgraded digital toolkit</span>. This collection of projects marks my
+        journey as milestones of how and why I added specific tools to my belt,
+        to ultimately paints the three pillars of <span id="emphasis">who I am as a person: empathetic,
+        methodical, and futuristically unique.</span>
+      </p>
+      <div id="clicker">click to enter</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var myVar;
+
+    // function myFunction() {
+    //   myVar = setTimeout(showPage, 10000000);
+    // }
+
+    document.getElementById("loader").onclick = function() {showPage()};
+
+    function showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("webgl").style.display = "block";
+    }
+  </script>
+
+  <canvas id="webgl" style="display:none;"></canvas>
     <script src="lib/navigate.js"></script>
     <script src="/lib/Tween.min.js"></script>
     <script src="/lib/perlin.js"></script>

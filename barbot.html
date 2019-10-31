@@ -22,8 +22,7 @@
     <div id="intro">
       <div id="subHeader">Introduction</div>
       <div id="introText">
-        Have you ever arrived home after a long day of work and just want to sit down and enjoy a nice refreshing beverage? Or maybe you’re having some friends over for some drinks and a board game but don’t want to be held up in the kitchen making everyone’s drink by hand while the others enjoy all the fun. The Barbot is your solution!</br>
-The product we prototyped and developed was an automated beverage maker and dispenser designed for any household. The product has the base functionality of crafting pre-programmed beverages on command. What makes this product unique however is the auto-make feature. The prototype uses a temperature sensor to measure the current user/customer’s present state. From this sensor, the machine decides to craft a specific drink tailored to the exact customer at the exact time of order.
+        Have you ever arrived home after a long day of work and just want to sit down and enjoy a nice refreshing beverage? Or maybe you’re having some friends over for some drinks and a board game but don’t want to be held up in the kitchen making everyone’s drink by hand while the others are having fun. The Barbot is your solution!
       </div>
     </div>
     <div id="Bbody1">
@@ -83,7 +82,7 @@ The product we prototyped and developed was an automated beverage maker and disp
     <div id="Bbody2">
       <div id="Bbody2b">
       <div id="subHeader">Implementation</div>
-      Our implementation of functionalities was accomplished through using two different microcontrollers: the
+      Our implementation of functionalities was accomplished through two different microcontrollers: the
 Arduino Mega, and the Arduino Uno. The reason for this was because we had to run some processes
 simultaneously.</br></br>
 Arduino Mega: The mega controlled most of our inputs and outputs. Occupying 2 direction pins and 2 step pins, it easily
@@ -91,7 +90,7 @@ powered our 4 motors. The remaining pins were connected to the keypad, LCD displ
 sensor. </br></br>
 Arduino Uno: We separated the functions of the LED strip as it was a function that we wanted running in the background
 of the bot. The initial design was for the two microcontrollers to communicate through I2C in such a way that
-the LED provided graphic feedback to the user, but due to a lack of time that goal was unaccomplished.
+the LED provided graphic feedback to the user. But due to a lack of time, that goal was not accomplished.
         </div>
       <div id="Bbody2c">
         <img src="assets/models/barbot/diagonalView.jpg" alt="electronics diagonal view">

@@ -1,5 +1,13 @@
+import NavBar from "./components/NavBar";
+import React from "react";
+
 const Contact = () => {
-  return <p> contact me pls</p>;
+  return (
+    <React.Fragment>
+      <NavBar></NavBar>
+      <p> contact me pls</p>
+    </React.Fragment>
+  );
 };
 
 export default Contact;

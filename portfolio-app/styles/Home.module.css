@@ -120,3 +120,38 @@
     flex-direction: column;
   }
 }
+
+/* toby input */
+
+.navbarContainer {
+  display: flex;
+  padding: 10px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.navbar {
+  width: 52px;
+  height: 52px;
+  padding: 2px;
+}
+
+.projectCardBox {
+  height: 33vh;
+  width: 90vw;
+  /* background-color: cyan; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+}
+
+.projectCardContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}

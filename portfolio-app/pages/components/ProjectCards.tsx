@@ -5,40 +5,9 @@ import Card from "./Card";
 import { useState } from "react";
 import { cardDefault } from "../../data";
 
-// const t = (params) => {
-//   return [1,2];
-// }
-
-// const [c,d] = t(12345);
-// const e = t(1245);
-// e[0] e[1]
-
 const ProjectCards = () => {
   const [cards, setCards] = useState(cardDefault);
-  // const [toggle, setToggle] = useState(false);
-  // const [hasBeenClicked, setHasBeenClicked] = useState(false);
   const [allToggledStatus, setAllToggledStatus] = useState(true);
-
-  // const [lastClickedIndex, setLastClickedIndex] = useState(7);
-  // var allToggledStatus = true;
-
-  // const toggler = (previousToggleStatus, allToggledStatus) => {
-  //   // Case 1: a card is clicked, all toggles are on and everything is colored
-  //   if (allToggledStatus == true && previousToggleStatus == true) {
-  //     allToggledStatus = false;
-  //   }
-  //   // Case 2: the same (and only) object that is currently clicked
-  //   // has already been toggled; meaning to retract all to inital
-  //   // everything colored state
-  //   else if (allToggledStatus == false && previousToggleStatus == true) {
-  //     allToggledStatus = true;
-  //   }
-  //   // Case 3: a new object is being clicked from the one that was
-  //   // initially toggled; meaning to retract old and set new
-  //   else if (allToggledStatus == false && previousToggleStatus == false) {
-  //     allToggledStatus = false;
-  //   }
-  // };
 
   return (
     <div className="projectCardContainer">
@@ -63,12 +32,9 @@ const ProjectCards = () => {
                   color={card.color}
                   toggleStatus={card.toggled}
                   setCards={setCards}
-                  // setToggle={toggler}
                   index={index}
                   allToggledStatus={allToggledStatus}
                   setAllToggledStatus={setAllToggledStatus}
-                  // lastClickedIndex={lastClickedIndex}
-                  // setLastClickedIndex={setLastClickedIndex}
                 />
               ))}
             </div>

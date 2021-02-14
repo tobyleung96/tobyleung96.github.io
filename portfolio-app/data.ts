@@ -39,10 +39,30 @@ export const cardDefault: CardData[] = [
 const barbot = {
   text: "Barbot",
   photo: [],
+  // dsFactor: 50
+  // mlFactor: 10
 };
 const p2 = {
   text: "project 2",
 };
+
+// const projects {
+//   "barbot": barbot,
+//   "p2": p2
+// }
+
+// ["barbot", "p2"]
+// ["gregs project", "barbot" ]
+
+// export const cardDefault: CardData[] = [
+//   machineLearning[] = [
+//     p2, barbot, lksalkjf,
+//   ]
+
+//   datascience[] =[
+//   barbot,
+//   ]
+// ];
 
 export const all = {
   projects: [barbot, p2],
